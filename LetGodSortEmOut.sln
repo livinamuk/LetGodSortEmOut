@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGLTemplate", "Template.vcxproj", "{3BCB4C73-71F6-43B6-803D-41411F92652A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug Editor|x86 = Debug Editor|x86
+		Debug HWA|x86 = Debug HWA|x86
+		Debug Unicode|x86 = Debug Unicode|x86
+		Debug|x86 = Debug|x86
+		Edittime HWA|x86 = Edittime HWA|x86
+		Edittime Unicode|x86 = Edittime Unicode|x86
+		Edittime|x86 = Edittime|x86
+		Runtime HWA|x86 = Runtime HWA|x86
+		Runtime Unicode|x86 = Runtime Unicode|x86
+		Runtime|x86 = Runtime|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Debug Editor|x86.ActiveCfg = Debug Editor|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Debug Editor|x86.Build.0 = Debug Editor|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Debug HWA|x86.ActiveCfg = Debug HWA|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Debug HWA|x86.Build.0 = Debug HWA|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Debug Unicode|x86.ActiveCfg = Debug Unicode|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Debug Unicode|x86.Build.0 = Debug Unicode|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Debug|x86.ActiveCfg = Debug|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Debug|x86.Build.0 = Debug|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Edittime HWA|x86.ActiveCfg = Edittime HWA|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Edittime HWA|x86.Build.0 = Edittime HWA|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Edittime Unicode|x86.ActiveCfg = Edittime Unicode|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Edittime Unicode|x86.Build.0 = Edittime Unicode|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Edittime|x86.ActiveCfg = Edittime|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Edittime|x86.Build.0 = Edittime|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Runtime HWA|x86.ActiveCfg = Runtime HWA|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Runtime HWA|x86.Build.0 = Runtime HWA|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Runtime Unicode|x86.ActiveCfg = Runtime Unicode|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Runtime Unicode|x86.Build.0 = Runtime Unicode|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Runtime|x86.ActiveCfg = Runtime|Win32
+		{3BCB4C73-71F6-43B6-803D-41411F92652A}.Runtime|x86.Build.0 = Runtime|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2C7F0FAE-0264-4E1A-9306-420AE8FC5F84}
+	EndGlobalSection
+EndGlobal

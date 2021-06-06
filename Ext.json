@@ -1,0 +1,285 @@
+{
+  "About": {
+    "Name": "Let God Sort Em Out",
+    "Author": "Chris Burrows",
+    "Copyright": "Copyright (C) 2021 Your Name",
+    "Comment": "Looks like a God damn town meeting",
+    "URL": "http://www.pornhub.com",
+    "Help": "Mommy are you there?",
+    "Identifier": "OGLT"
+  },
+  "ActionMenu": [
+    [ 0, "Resize" ],
+    [ 1, "Set camera scrolling position" ],
+    [ 2, "Set line of sight position" ],
+    [ 3, "Set render mode" ],
+    [ 4, "Pair new light to active object" ],
+    [ 5, "Start rendering" ],
+    [ 6, "New light" ],
+    [ 7, "Set light position" ],
+    [ 8, "Set light color" ],
+    [ 9, "Set light scale" ],
+    [ 10, "Set light type" ],
+    [ 11, "Set light strength" ],
+    [ 12, "Set light rotation" ],
+    [ 13, "Set map value" ],
+    [ 14, "Toggle LOS" ],
+    [ 15, "Toggle LIGHTING" ],
+    [ 16, "Remove light by ID" ]
+  ],
+    "ConditionMenu": [
+    ],
+  "ExpressionMenu": [
+    [ 0, "Get width" ],
+    [ 1, "Get height" ],
+    [ 2, "Get tile value" ],
+    [ 3, "Get grid size" ],
+    [ 4, "Get map width" ],
+    [ 5, "Get map height" ],
+    [ 6, "Get light count" ],
+    [ 7, "Get light ID by index" ],
+    [ 8, "Get light x position by index" ],
+    [ 9, "Get light y position by index" ],
+    [ 10, "Get light rotation by index" ],
+    [ 11, "Get light scale by index" ],
+    [ 12, "Get light red component by index" ],
+    [ 13, "Get light green component by index" ],
+    [ 14, "Get light blue component by index" ],
+    [ 15, "Get light brightness by index" ],
+    [ 16, "Get light texture index" ]
+  ],
+  "Actions": [
+    {
+      "Title": "Resize to %0, %1",
+      "Parameters": [
+        [ "Integer", "Width" ],
+        [ "Integer", "Height" ]
+      ]
+    },
+    {
+      "Title": "Set camera scrolling position to %0, %1",
+      "Parameters": [
+        [ "Integer", "x" ],
+        [ "Integer", "y" ]
+      ]
+    },
+    {
+      "Title": "Set line of sight position to %0, %1",
+      "Parameters": [
+        [ "Integer", "x" ],
+        [ "Integer", "y" ]
+      ]
+    },
+    {
+      "Title": "Set render mode to %0",
+      "Parameters": [
+        [ "Integer", "mode" ]
+      ]
+    },
+    {
+      "Title": "Pair new light to Active: %0 offset (%2, %3) color (%4, %5, %6) scale %7 type %8 strength %9 rotation %10 use hotspot %1",
+      "Parameters": [
+        [ "Integer", "fixed value" ],
+        [ "Integer", "use hotspot" ],
+        [ "Integer", "x offset" ],
+        [ "Integer", "y offset" ],
+        [ "Float", "red" ],
+        [ "Float", "green" ],
+        [ "Float", "blue" ],
+        [ "Float", "scale" ],
+        [ "Integer", "type" ],
+        [ "Float", "strength" ],
+        [ "Integer", "rotation" ]
+      ]
+    },
+    {
+      "Title": "Start rendering"
+    },
+    {
+      "Title": "New Light %0 at (%1, %2) RGB(%3, %4, %5) scale %6 type %7 strength %8 rotate %9",
+      "Parameters": [
+        [ "Text", "name" ],
+        [ "Integer", "x" ],
+        [ "Integer", "y" ],
+        [ "Float", "r" ],
+        [ "Float", "g" ],
+        [ "Float", "b" ],
+        [ "Float", "scale" ],
+        [ "Integer", "type" ],
+        [ "Float", "strength" ],
+        [ "Integer", "rotate" ]
+      ]
+    },
+    {
+      "Title": "Set light %0 to position (%1, %2)",
+      "Parameters": [
+        [ "Text", "name" ],
+        [ "Integer", "x" ],
+        [ "Integer", "y" ]
+      ]
+    },
+    {
+      "Title": "Set light %0 to color (%1, %2, %3)",
+      "Parameters": [
+        [ "Text", "name" ],
+        [ "Float", "r" ],
+        [ "Float", "g" ],
+        [ "Float", "b" ]
+      ]
+    },
+    {
+      "Title": "Set light %0 scale %1",
+      "Parameters": [
+        [ "Text", "name" ],
+        [ "Float", "scale" ]
+      ]
+    },
+    {
+      "Title": "Set light %0 type %1",
+      "Parameters": [
+        [ "Text", "name" ],
+        [ "Integer", "tytpe" ]
+      ]
+    },
+    {
+      "Title": "Set light %0 strength %1",
+      "Parameters": [
+        [ "Text", "name" ],
+        [ "Float", "scale" ]
+      ]
+    },
+    {
+      "Title": "Set light %0 rotation %1",
+      "Parameters": [
+        [ "Text", "name" ],
+        [ "Integer", "scale" ]
+      ]
+    },
+    {
+      "Title": "Set map position (%0, %1) to value %2",
+      "Parameters": [
+        [ "Integer", "x" ],
+        [ "Integer", "y" ],
+        [ "Integer", "value" ]
+      ]
+    },
+    {
+      "Title": "Toggle LOS"
+    },
+    {
+      "Title": "Toggle lighting"
+    },
+    {
+      "Title": "Remove light by ID %0",
+      "Parameters": [
+        [ "Text", "id" ]
+      ]
+    }
+  ],
+    "Conditions": [
+    ],
+  "Expressions": [
+    {
+      "Title": "Width(",
+      "Returns": "Integer"
+    },
+    {
+      "Title": "Height(",
+      "Returns": "Integer"
+    },
+    {
+      "Title": "GetTileValue(",
+      "Parameters": [
+        [ "Integer", "x" ],
+        [ "Integer", "y" ]
+      ],
+      "Returns": "Integer"
+    },
+    {
+      "Title": "GetGridSize(",
+      "Returns": "Integer"
+    },
+    {
+      "Title": "GetMapWidth(",
+      "Returns": "Integer"
+    },
+    {
+      "Title": "GetMapHeight(",
+      "Returns": "Integer"
+    },
+    {
+      "Title": "GetLightCount(",
+      "Returns": "Integer"
+    },
+    {
+      "Title": "GetLightIDByIndex(",
+      "Parameters": [
+        [ "Integer", "index" ]
+      ],
+      "Returns": "Text"
+    },
+    {
+      "Title": "GetLightXByIndex(",
+      "Parameters": [
+        [ "Integer", "index" ]
+      ],
+      "Returns": "Integer"
+    },
+    {
+      "Title": "GetLightYByIndex(",
+      "Parameters": [
+        [ "Integer", "index" ]
+      ],
+      "Returns": "Integer"
+    },
+    {
+      "Title": "GetLightRotationByIndex(",
+      "Parameters": [
+        [ "Integer", "index" ]
+      ],
+      "Returns": "Integer"
+    },
+    {
+      "Title": "GetLightScaleByIndex(",
+      "Parameters": [
+        [ "Integer", "index" ]
+      ],
+      "Returns": "Float"
+    },
+    {
+      "Title": "GetLightRedComponentByIndex(",
+      "Parameters": [
+        [ "Integer", "index" ]
+      ],
+      "Returns": "Float"
+    },
+    {
+      "Title": "GetLightGreenComponentByIndex(",
+      "Parameters": [
+        [ "Integer", "index" ]
+      ],
+      "Returns": "Float"
+    },
+    {
+      "Title": "GetLightBlueComponentByIndex(",
+      "Parameters": [
+        [ "Integer", "index" ]
+      ],
+      "Returns": "Float"
+    },
+    {
+      "Title": "GetLightBrightnessComponentByIndex(",
+      "Parameters": [
+        [ "Integer", "index" ]
+      ],
+      "Returns": "Float"
+    },
+    {
+      "Title": "GetLightTextureComponentByIndex(",
+      "Parameters": [
+        [ "Integer", "index" ]
+      ],
+      "Returns": "Text"
+    }
+  ]
+}

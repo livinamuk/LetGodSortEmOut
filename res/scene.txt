@@ -1,0 +1,470 @@
+{
+    "Savefile": [
+        {
+            "Lights": [
+                {
+                    "X": 801,
+                    "Y": 452,
+                    "ColorR": 1.0,
+                    "ColorG": 0.0,
+                    "ColorB": 0.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 2.3999998569488527,
+                    "Scale": 13.0
+                },
+                {
+                    "X": 610,
+                    "Y": 932,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 1,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 3.0
+                },
+                {
+                    "X": 1004,
+                    "Y": 764,
+                    "ColorR": 0.0,
+                    "ColorG": 0.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 1132,
+                    "Y": 765,
+                    "ColorR": 0.0,
+                    "ColorG": 0.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 1071,
+                    "Y": 847,
+                    "ColorR": 1.0,
+                    "ColorG": 0.0,
+                    "ColorB": 0.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 1088,
+                    "Y": 669,
+                    "ColorR": 1.0,
+                    "ColorG": 0.0,
+                    "ColorB": 0.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 1042,
+                    "Y": 711,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 0.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 801,
+                    "Y": 811,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 1,
+                    "Rotate": 0,
+                    "Strength": 0.19999992847442628,
+                    "Scale": 7.0
+                },
+                {
+                    "X": 1164,
+                    "Y": 698,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 0.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 1199,
+                    "Y": 570,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 565,
+                    "Y": 768,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 0.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 641,
+                    "Y": 598,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 1,
+                    "Rotate": 1,
+                    "Strength": 1.0,
+                    "Scale": 1.5
+                },
+                {
+                    "X": 662,
+                    "Y": 432,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 0.8999999761581421,
+                    "Scale": 2.5
+                },
+                {
+                    "X": 953,
+                    "Y": 431,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 0.8999999761581421,
+                    "Scale": 2.5
+                },
+                {
+                    "X": 800,
+                    "Y": 238,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 1,
+                    "Rotate": 1,
+                    "Strength": 1.0,
+                    "Scale": 3.0
+                },
+                {
+                    "X": 1395,
+                    "Y": 873,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 2,
+                    "Rotate": 1,
+                    "Strength": 0.5999999046325684,
+                    "Scale": 1.5
+                },
+                {
+                    "X": 1834,
+                    "Y": 996,
+                    "ColorR": 0.0,
+                    "ColorG": 0.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 0.8999999761581421,
+                    "Scale": 7.0
+                },
+                {
+                    "X": 1820,
+                    "Y": 575,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 0.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.100000023841858,
+                    "Scale": 7.0
+                },
+                {
+                    "X": 1685,
+                    "Y": 1048,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 1,
+                    "Rotate": 3,
+                    "Strength": 1.8000001907348633,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 401,
+                    "Y": 1018,
+                    "ColorR": 0.0,
+                    "ColorG": 0.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 333,
+                    "Y": 1009,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 0.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 266,
+                    "Y": 1006,
+                    "ColorR": 1.0,
+                    "ColorG": 0.0,
+                    "ColorB": 0.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 467,
+                    "Y": 1014,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 0.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 531,
+                    "Y": 1015,
+                    "ColorR": 1.0,
+                    "ColorG": 0.0,
+                    "ColorB": 0.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 260,
+                    "Y": 798,
+                    "ColorR": 0.0,
+                    "ColorG": 0.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 0.3999999165534973,
+                    "Scale": 8.5
+                },
+                {
+                    "X": 47,
+                    "Y": 844,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 1,
+                    "Rotate": 0,
+                    "Strength": 1.2000000476837159,
+                    "Scale": 3.5
+                },
+                {
+                    "X": 358,
+                    "Y": 837,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 0.3999999165534973,
+                    "Scale": 3.0
+                },
+                {
+                    "X": 1395,
+                    "Y": 956,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 0.6999999284744263,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 322,
+                    "Y": 803,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 300,
+                    "Y": 816,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 337,
+                    "Y": 799,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 249,
+                    "Y": 841,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 249,
+                    "Y": 822,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 278,
+                    "Y": 799,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 228,
+                    "Y": 750,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 268,
+                    "Y": 783,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 292,
+                    "Y": 856,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 304,
+                    "Y": 890,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 322,
+                    "Y": 883,
+                    "ColorR": 1.0,
+                    "ColorG": 1.0,
+                    "ColorB": 1.0,
+                    "Type": 0,
+                    "Rotate": 0,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 307,
+                    "Y": 321,
+                    "ColorR": 1.0,
+                    "ColorG": 0.0,
+                    "ColorB": 0.0,
+                    "Type": 2,
+                    "Rotate": 1,
+                    "Strength": 1.100000023841858,
+                    "Scale": 1.5
+                },
+                {
+                    "X": 401,
+                    "Y": 496,
+                    "ColorR": 1.0,
+                    "ColorG": 0.0,
+                    "ColorB": 0.0,
+                    "Type": 1,
+                    "Rotate": 2,
+                    "Strength": 1.0,
+                    "Scale": 2.0
+                },
+                {
+                    "X": 206,
+                    "Y": 485,
+                    "ColorR": 1.0,
+                    "ColorG": 0.0,
+                    "ColorB": 0.0,
+                    "Type": 1,
+                    "Rotate": 0,
+                    "Strength": 1.3000000715255738,
+                    "Scale": 1.5
+                }
+            ]
+        }
+    ]
+}

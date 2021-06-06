@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{5c9e9df0-f736-437d-807b-b460a202942c}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{f4afbc24-8a60-4bb8-ad3b-fdd73f98f21e}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{cbf8ad70-7c0b-482b-b160-4cc0e1f7f34f}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Global to all extensions">
+      <UniqueIdentifier>{3b2cf6ec-0757-4548-be2a-734029ef04cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global to all extensions\Edif">
+      <UniqueIdentifier>{3afa9a47-c9da-4925-99e6-62c1812d3a0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global to all extensions\Edif\json">
+      <UniqueIdentifier>{6e5f7a9e-111a-434f-8354-4e1fbbed391e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MyShit">
+      <UniqueIdentifier>{cf3f5bf4-1fdc-4e7f-8bf0-ba5edab68ad4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MyShit\Core">
+      <UniqueIdentifier>{1d2fb591-6d8b-48c7-bc5c-f46e7dcdb3fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MyShit\Helpers">
+      <UniqueIdentifier>{3cec292e-4aa3-421e-9098-e73d0001db97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MyShit\Renderer">
+      <UniqueIdentifier>{567e9afd-068e-4ffc-9f5b-a6552b5f855b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\vendor">
+      <UniqueIdentifier>{d445437c-cb12-4710-aaff-9025b2dd7cb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\res">
+      <UniqueIdentifier>{cedc8dd4-8f17-475d-8277-1b05b0200220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\res\shaders">
+      <UniqueIdentifier>{bf1de938-ba1f-4a84-a9fb-8146979011dc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Actions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Conditions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Edittime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Expressions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Extension.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="General.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Runtime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Lib\ObjectSelection.cpp">
+      <Filter>Global to all extensions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Lib\Edif.cpp">
+      <Filter>Global to all extensions\Edif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Lib\Edif.Edittime.cpp">
+      <Filter>Global to all extensions\Edif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Lib\Edif.General.cpp">
+      <Filter>Global to all extensions\Edif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Lib\Edif.Runtime.cpp">
+      <Filter>Global to all extensions\Edif</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Lib\json.c">
+      <Filter>Global to all extensions\Edif\json</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Core\Input.cpp">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Core\Light.cpp">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Core\Scene.cpp">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Core\WorldMap.cpp">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Core\Camera2D.cpp">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Core\CoreGL.cpp">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Helpers\Util.cpp">
+      <Filter>Source Files\MyShit\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Renderer\GBuffer.cpp">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Renderer\Quad2D.cpp">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Renderer\Renderer.cpp">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Renderer\Shader.cpp">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Renderer\TextBlitter.cpp">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Renderer\Texture.cpp">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Renderer\Transform.cpp">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Renderer\BlurBuffer.cpp">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="RaycastEngine.cpp">
+      <Filter>Source Files\MyShit</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ext.def">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="Ext.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\shaders\blurVertical.vert">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\composite.frag">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\composite.vert">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\nonshadowcastinglight.frag">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\nonshadowcastinglight.vert">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\playerLineOfSight.frag">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\playerLineOfSight.vert">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\shadowcastinglight.frag">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\shadowcastinglight.vert">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\solidColor.frag">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\solidColor.vert">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\textured2DquadShader.frag">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\textured2DquadShader.vert">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\blur.frag">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\blurHorizontal.vert">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\Fusion.vert">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+    <None Include="res\shaders\Fusion.frag">
+      <Filter>Source Files\res\shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Extension.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\Ccx.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\Ccxhdr.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\CfcError.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\CfcFile.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\Cncf.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\cncr.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\Cncy.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\Cnpdll.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\colors.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\EVTCCX.H">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\Fill.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\FilterMgr.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\ImageFlt.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\ImgFlt.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\ObjectSelection.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\Palet.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\Patch.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\PictEdDefs.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\Props.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\PTYPE.H">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\SoundFilter.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\SoundFilterMgr.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\Surface.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\WinMacro.h">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\Edif.h">
+      <Filter>Global to all extensions\Edif</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Inc\json.h">
+      <Filter>Global to all extensions\Edif\json</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Core\CoreGL.h">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Core\Input.h">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Core\keycodes.h">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Core\Light.h">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Core\Scene.h">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Core\WorldMap.h">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Core\Camera2D.h">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Helpers\Util.h">
+      <Filter>Source Files\MyShit\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Renderer\BlurBuffer.h">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Renderer\GBuffer.h">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Renderer\Quad2D.h">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Renderer\Renderer.h">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Renderer\Shader.h">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Renderer\TextBlitter.h">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Renderer\Texture.h">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Renderer\Transform.h">
+      <Filter>Source Files\MyShit\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Header.h">
+      <Filter>Source Files\MyShit</Filter>
+    </ClInclude>
+    <ClInclude Include="RaycastEngine.h">
+      <Filter>Source Files\MyShit</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Ext.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Icon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
