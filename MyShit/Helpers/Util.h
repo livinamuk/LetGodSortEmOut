@@ -2,8 +2,6 @@
 #include "Header.h"
 #include "Renderer/Transform.h"
 #include "Renderer/Shader.h"
-
-
 #include "rapidjson/document.h"
 #include <rapidjson/filereadstream.h>
 #include <rapidjson/istreamwrapper.h>
@@ -11,8 +9,7 @@
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/ostreamwrapper.h>
 #include <rapidjson/prettywriter.h>
-
-
+#include <crtdbg.h>
 
 class Util
 {

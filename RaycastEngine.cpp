@@ -5,10 +5,11 @@ bool RaycastEngine::s_render;
 
 void RaycastEngine::Init()
 {
+	AssetManager::FindAllFiles("res/textures/");
 	Renderer::Init();
 	WorldMap::LoadMap();
 	Scene::LoadScene("res/scene.txt");
-	Renderer::s_renderMode = RENDER_MODE_FUSION_WORLD_PLUS_LIGHTING;
+	Renderer::s_renderMode = RENDER_MODE_FUSION;
 }
 
 void RaycastEngine::RenderLoop()
@@ -30,7 +31,5 @@ void RaycastEngine::SetCell(int x, int y, int value)
 	else if (value == 1)
 		tile = Tile::WALL;
 
-	WorldMap::s_map[x][y].tile = tile;
-
-	
+	WorldMap::SetCell(x, y, tile);	
 }

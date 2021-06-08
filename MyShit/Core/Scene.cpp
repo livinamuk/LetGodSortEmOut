@@ -1,26 +1,24 @@
 #include "Scene.h"
 
 std::vector<Light> Scene::s_lights;
-//std::unordered_map<std::string, Light> Scene::s_runtime_lights; 
-//std::vector<NamedLight> Scene::s_runtime_lights;
 
-void Scene::AddLight(int x, int y, glm::vec3 lightColor, float lightScale, int lightType, float strength, int rotate)
+void Scene::AddLight(int x, int y, glm::vec3 lightColor, float lightScale, int lightType, float brightness, float angle)
 {
-	Light light("noname", glm::vec2(x, y), lightColor, lightScale, lightType, strength, rotate);
+	Light light("noname", glm::vec2(x, y), lightColor, lightScale, lightType, brightness, angle);
 	s_lights.push_back(light);
 }
 
-void Scene::AddRuntimeLight(const char* name, int x, int y, glm::vec3 color, float scale, int type, float strength, int rotate)
+void Scene::AddRuntimeLight(const char* name, int x, int y, glm::vec3 color, float scale, int type, float brightness, float angle)
 {
-	Light light(name, glm::vec2(x, y), color, scale, type, strength, rotate);
-	s_lights.push_back(light); 
+	Light light(name, glm::vec2(x, y), color, scale, type, brightness, angle);
+	s_lights.push_back(light);
 }
 
-void Scene::AddFixedValueLight(int fixedValue, int hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, int type, float strength, float rotation)
+void Scene::AddFixedValueLight(int fixedValue, int hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, int type, float brightness, float angle)
 {
 	std::string name = "object_light_" + std::to_string(fixedValue);
-	Light light(name, glm::vec2(0, 0), glm::vec3(r,g,b), scale, type, strength, rotation);
-	
+	Light light(name, glm::vec2(0, 0), glm::vec3(r, g, b), scale, type, brightness, angle);
+
 	light.m_pairedObjectData.isPaired = true;
 	light.m_pairedObjectData.fixedValue = fixedValue;
 	light.m_pairedObjectData.followHotSpot = hotspot;
@@ -44,14 +42,14 @@ void Scene::SaveScene(std::string filename)
 	for (Light& light : s_lights) {
 		rapidjson::Value flagObject;
 		flagObject.SetObject();
-		SaveInt(&flagObject, "X", light.m_position.x, allocator);
-		SaveInt(&flagObject, "Y", light.m_position.y, allocator);
+		SaveInt(&flagObject, "X", light.GetX(), allocator);
+		SaveInt(&flagObject, "Y", light.GetY(), allocator);
 		SaveFloat(&flagObject, "ColorR", light.m_color.x, allocator);
 		SaveFloat(&flagObject, "ColorG", light.m_color.y, allocator);
 		SaveFloat(&flagObject, "ColorB", light.m_color.z, allocator);
 		SaveInt(&flagObject, "Type", light.m_type, allocator);
-		SaveInt(&flagObject, "Rotate", light.m_rotate, allocator);
-		SaveFloat(&flagObject, "Strength", light.m_strength, allocator);
+		SaveFloat(&flagObject, "Angle", light.m_angle, allocator);
+		SaveFloat(&flagObject, "Brightness", light.m_brightness, allocator);
 		SaveFloat(&flagObject, "Scale", light.m_scale, allocator);
 		lightsArray.PushBack(flagObject, allocator);
 	}
@@ -105,11 +103,11 @@ void Scene::LoadScene(std::string filename)
 			float g = light["ColorG"].GetFloat();
 			float b = light["ColorB"].GetFloat();
 			int type = light["Type"].GetInt();
-			int rotate = light["Rotate"].GetInt();
-			float strength = light["Strength"].GetFloat();
+			float angle = light["Angle"].GetFloat();
+			float brightness = light["Brightness"].GetFloat();
 			float scale = light["Scale"].GetFloat();
 
-			Scene::AddLight(x, y, glm::vec3(r, g, b), scale, type, strength, rotate);
+			Scene::AddLight(x, y, glm::vec3(r, g, b), scale, type, brightness, angle);
 		}
 	}
 }
@@ -127,6 +125,12 @@ Light* Scene::GetLightByName(std::string name)
 			return &Scene::s_lights[i];
 	}
 	return nullptr;
+}
+
+void Scene::UpdateAllLights()
+{
+	for (Light& light : s_lights)
+		light.m_visibilityPolygonNeedsUpdate = true;
 }
 
 void Scene::SaveString(rapidjson::Value* object, std::string elementName, std::string string, rapidjson::Document::AllocatorType& allocator)

@@ -287,7 +287,6 @@ void Extension::RenderGLFrame(cSurface* screenSurface)
 	// Read color data
 	glReadBuffer(GL_BACK);
 	glReadPixels(0, 0, surface.GetWidth(), surface.GetHeight(), GL_BGR, GL_UNSIGNED_BYTE, reinterpret_cast<GLvoid*>(buffer));
-
 	surface.UnlockBuffer(buffer);
 }
 

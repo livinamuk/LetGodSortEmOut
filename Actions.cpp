@@ -34,7 +34,7 @@ void Extension::SetRenderMode(int mode)
 
 void Extension::NextRenderMode()
 {
-    Renderer::NextRenderMode();
+   
 }
 
 void Extension::ToggleLOS()
@@ -61,6 +61,31 @@ void Extension::RemoveLightByID(const char* name)
     }
 }
 
+void Extension::SetLOSShadowSoftness(int levels)
+{
+    Renderer::SetLineOfSightBlurLevels(levels);
+}
+
+void Extension::SetLightingShadowSoftness(int levels)
+{
+    Renderer::SetLightingBlurLevels(levels);
+}
+
+void Extension::ToggleEditor()
+{
+    Renderer::s_editorMode = !Renderer::s_editorMode;
+}
+
+void Extension::SetWallEdgeInset(int inset)
+{
+    Renderer::s_wallEdgeInset = inset;
+}
+
+bool Extension::IsEditorOpen()
+{
+    return Renderer::s_editorMode;
+}
+
 void Extension::StartRendering()
 {
     RaycastEngine::s_render = true;
@@ -72,7 +97,7 @@ void Extension::PauseRendering()
     RaycastEngine::s_render = false;
 }*/
 
-void Extension::PairNewLightToActive(int fixedValue, bool hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, int type, float strength, int rotation)
+void Extension::PairNewLightToActive(int fixedValue, bool hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, int type, float brightness, int rotation)
 {
 
     LPRO objectPtr = Runtime.LPROFromFixed(fixedValue);
@@ -82,20 +107,19 @@ void Extension::PairNewLightToActive(int fixedValue, bool hotspot, int xOffset, 
         return;
 
     // Otherwise, create new fixed value light
-    Scene::AddFixedValueLight(fixedValue, hotspot, xOffset, yOffset, r, g, b, scale, type, strength, rotation);
+    Scene::AddFixedValueLight(fixedValue, hotspot, xOffset, yOffset, r, g, b, scale, type, brightness, rotation);
 }
 
-void Extension::NewLight(const char* name, int x, int y, float r, float g, float b, float scale, int type, float strength, int rotate)
+void Extension::NewLight(const char* name, int x, int y, float r, float g, float b, float scale, int type, float brightness, int rotate)
 {
-    //Scene::AddRuntimeLight(name, x, y, glm::vec3(r, g, b), scale, type, strength, rotate);
-    Scene::AddRuntimeLight(name, x, y, glm::vec3(r, g, b), scale, type, strength, rotate);
+    Scene::AddRuntimeLight(name, x, y, glm::vec3(r, g, b), scale, type, brightness, rotate);
 }
 
 void Extension::SetLightPosition(const char* name, int x, int y)
 {
     Light* light = Scene::GetLightByName(name);
     if (light)
-        light->m_position = glm::vec2(x, y);
+        light->SetPosition(x, y);
 }
 
 void Extension::SetLightColor(const char* name, float r, float g, float b)
@@ -119,18 +143,18 @@ void Extension::SetLightType(const char* name, int type)
         light->m_type = type;
 }
 
-void Extension::SetLightStrength(const char* name, float strength)
+void Extension::SetLightBrightness(const char* name, float brightness)
 {
     Light* light = Scene::GetLightByName(name);
     if (light)
-        light->m_strength = strength;
+        light->m_brightness = brightness;
 }
 
-void Extension::SetLightRotation(const char* name, int rotation)
+void Extension::SetLightAngle(const char* name, float angle)
 {
     Light* light = Scene::GetLightByName(name);
     if (light)
-        light->m_rotate = rotation;
+        light->m_angle = angle;
 }
 
 void Extension::SetCellValue(int x, int y, int value)

@@ -4,6 +4,7 @@
 #include "Core/Input.h"
 #include "Core/WorldMap.h"
 #include "Helpers/Util.h"
+#include "Helpers/AssetManager.h"
 #include "Renderer/Texture.h"
 #include "Renderer/TextBlitter.h"
 #include "Renderer/Renderer.h"

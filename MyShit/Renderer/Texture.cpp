@@ -1,5 +1,6 @@
 #include "Texture.h"
 
+std::string Texture::s_textureDirectory;
 std::vector<Texture> Texture::s_textures;
 
 Texture::Texture(std::string name)
@@ -35,7 +36,7 @@ Texture* Texture::GetTexByName(std::string name)
 }
 
 void Texture::ReadFromDisk()
-{	
+{
 	stbi_set_flip_vertically_on_load(false);
 	std::string fullpath = "res/textures/" + name;
 	data = stbi_load(fullpath.c_str(), &width, &height, &nrChannels, 0);
@@ -51,7 +52,7 @@ void Texture::LoadToGL()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	GLint format = GL_RGB;

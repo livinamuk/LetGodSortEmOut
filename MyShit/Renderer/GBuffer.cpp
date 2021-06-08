@@ -6,7 +6,7 @@ GBuffer::GBuffer(int width, int height)
 	glGenTextures(1, &gWorld);
 	glGenTextures(1, &gLighting);
 	glGenTextures(1, &gLineOfSight);
-	glGenTextures(1, &gFinalImage);
+	glGenTextures(1, &gEditor);
 	Configure(width, height);
 }
 
@@ -41,9 +41,9 @@ void GBuffer::Configure(int width, int height)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, gLighting, 0);
 
-	glBindTexture(GL_TEXTURE_2D, gFinalImage);
+	glBindTexture(GL_TEXTURE_2D, gEditor);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, NULL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, GL_TEXTURE_2D, gFinalImage, 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT3, GL_TEXTURE_2D, gEditor, 0);
 }

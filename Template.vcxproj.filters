@@ -93,9 +93,6 @@
     <ClCompile Include="stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MyShit\Core\Input.cpp">
       <Filter>Source Files\MyShit\Core</Filter>
     </ClCompile>
@@ -143,6 +140,9 @@
     </ClCompile>
     <ClCompile Include="RaycastEngine.cpp">
       <Filter>Source Files\MyShit</Filter>
+    </ClCompile>
+    <ClCompile Include="MyShit\Helpers\AssetManager.cpp">
+      <Filter>Source Files\MyShit\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -292,9 +292,6 @@
     <ClInclude Include="..\..\Inc\json.h">
       <Filter>Global to all extensions\Edif\json</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MyShit\Core\CoreGL.h">
       <Filter>Source Files\MyShit\Core</Filter>
     </ClInclude>
@@ -348,6 +345,9 @@
     </ClInclude>
     <ClInclude Include="RaycastEngine.h">
       <Filter>Source Files\MyShit</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Helpers\AssetManager.h">
+      <Filter>Source Files\MyShit\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

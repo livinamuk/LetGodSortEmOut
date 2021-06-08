@@ -54,21 +54,21 @@ int Extension::GetLightXByIndex(int index)
 {
 	if (index < 0 || index >= Scene::s_lights.size())
 		return -1;
-	return (int)Scene::s_lights[index].m_position.x;
+	return (int)Scene::s_lights[index].GetX();
 }
 
 int Extension::GetLightYByIndex(int index)
 {
 	if (index < 0 || index >= Scene::s_lights.size())
 		return -1;
-	return (int)Scene::s_lights[index].m_position.y;
+	return (int)Scene::s_lights[index].GetY();
 }
 
-int Extension::GetLightRotationByIndex(int index)
+int Extension::GetLightAngleByIndex(int index)
 {
 	if (index < 0 || index >= Scene::s_lights.size())
 		return -1;
-	return Scene::s_lights[index].m_rotate;
+	return Scene::s_lights[index].m_angle;
 }
 
 float Extension::GetLightScaleByIndex(int index)
@@ -103,10 +103,30 @@ float Extension::GetLightBrightnessByIndex(int index)
 {
 	if (index < 0 || index >= Scene::s_lights.size())
 		return -1;
-	return Scene::s_lights[index].m_strength;
+	return Scene::s_lights[index].m_brightness;
 }
 
 const char* Extension::GetLightTextureByIndex(int index)
 {
 	return "TO DO";
+}
+
+int Extension::GetLOSSoftShadowsAmount()
+{
+	return Renderer::s_softShadowsAmountLOS;
+}
+
+int Extension::GetLightingSoftShadowsAmount()
+{
+	return Renderer::s_softShadowsAmountLighting;
+}
+
+int Extension::GetWallEdgeInset()
+{
+	return Renderer::s_wallEdgeInset;
+}
+
+int Extension::GetLightsDrawn()
+{
+	return Light::s_lightsDrawn;
 }

@@ -65,22 +65,26 @@ public:
     void NextRenderMode();
     void StartRendering();
     //void PauseRendering();
-    void PairNewLightToActive(int fixedValue, bool hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, int type, float strength, int rotate);
-    void NewLight(const char* name, int x, int y, float r, float g, float b, float scale, int type, float strength, int rotate);
+    void PairNewLightToActive(int fixedValue, bool hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, int type, float brightness, int rotate);
+    void NewLight(const char* name, int x, int y, float r, float g, float b, float scale, int type, float brightness, int rotate);
     void SetLightPosition(const char* name, int x, int y);
     void SetLightColor(const char* name, float r, float g, float b);
     void SetLightScale(const char* name, float scale);
     void SetLightType(const char* name, int type);
-    void SetLightStrength(const char* name, float strength);
-    void SetLightRotation(const char* name, int rotation);
+    void SetLightBrightness(const char* name, float brightness);
+    void SetLightAngle(const char* name, float angle);
     void SetCellValue(int x, int y, int value);
     void ToggleLOS();
     void ToggleLIGHTING();
     void RemoveLightByID(const char* name);
+    void SetLOSShadowSoftness(int levels);
+    void SetLightingShadowSoftness(int levels);
+    void ToggleEditor();
+    void SetWallEdgeInset(int inset);
 
 
     /// Conditions
-
+    bool IsEditorOpen();
     //bool AreTwoNumbersEqual(int FirstNumber, int SecondNumber);
 	//bool ObjectsXEquals(RunObject* Obj, int XPosition);
 
@@ -96,13 +100,17 @@ public:
     const char* GetLightIDbyIndex(int index);
     int GetLightXByIndex(int index);
     int GetLightYByIndex(int index);
-    int GetLightRotationByIndex(int index);
+    int GetLightAngleByIndex(int index);
     float GetLightScaleByIndex(int index);
     float GetLightRedComponentByIndex(int index);
     float GetLightGreenComponentByIndex(int index);
     float GetLightBlueComponentByIndex(int index);
     float GetLightBrightnessByIndex(int index);
     const char* GetLightTextureByIndex(int index);
+    int GetLOSSoftShadowsAmount();
+    int GetLightingSoftShadowsAmount();
+    int GetWallEdgeInset();
+    int GetLightsDrawn();
 
 
 

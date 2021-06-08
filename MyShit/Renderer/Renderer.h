@@ -31,10 +31,10 @@ public: // functions
 	static void LightingPass();
 	static void HandleEditorInput();
 	static void DownScale(int sourceFBO, int sourceColorAttachment, int levels);
-	static void NextRenderMode();
 	static void ToggleLOS();
 	static void ToggleLIGHTING();
-
+	static void SetLineOfSightBlurLevels(int levels);
+	static void SetLightingBlurLevels(int levels);
 
 public: // variables
 	static Shader s_solid_color_shader;
@@ -56,10 +56,15 @@ public: // variables
 
 	static int s_selectedLight;
 	static int s_hoveredLight;
-
 	static int s_renderMode;
+
+	static bool s_editorMode;
 	static bool s_renderLOS;
 	static bool s_renderLIGHTING;
 
+	static int s_wallEdgeInset;
+
+	static int s_softShadowsAmountLOS;
+	static int s_softShadowsAmountLighting;
 };
 

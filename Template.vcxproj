@@ -239,6 +239,7 @@
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;EDITOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -257,7 +258,7 @@
       <DataExecutionPrevention />
       <ImportLibrary>$(IntDir)Template.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>C:\Users\livinkorrupt\Desktop\Extension Development\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release;vendor\GLFW\lib\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Github Repos\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -289,6 +290,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;EDITOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -307,7 +309,7 @@
       <DataExecutionPrevention />
       <ImportLibrary>$(IntDir)Template.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>C:\Users\livinkorrupt\Desktop\Extension Development\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release;vendor\GLFW\lib\release</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Github Repos\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -341,6 +343,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;EDITOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -360,7 +363,7 @@
       </DataExecutionPrevention>
       <ImportLibrary>$(IntDir)Template.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>C:\Users\livinkorrupt\Desktop\Extension Development\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release;vendor\GLFW\lib\release</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Github Repos\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -396,6 +399,7 @@
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;RUN_ONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -414,7 +418,7 @@
       <DataExecutionPrevention />
       <ImportLibrary>$(IntDir)Template.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>C:\Users\livinkorrupt\Desktop\Extension Development\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release;vendor\GLFW\lib\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Github Repos\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -446,6 +450,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;EDITOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -464,7 +469,7 @@
       <DataExecutionPrevention />
       <ImportLibrary>$(IntDir)Template.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>C:\Users\livinkorrupt\Desktop\Extension Development\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release;vendor\GLFW\lib\release</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Github Repos\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -499,6 +504,7 @@
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;EDITOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -517,7 +523,7 @@
       <DataExecutionPrevention />
       <ImportLibrary>$(IntDir)Template.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>C:\Users\livinkorrupt\Desktop\Extension Development\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release;vendor\GLFW\lib\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Github Repos\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -552,6 +558,7 @@
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;RUN_ONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -570,7 +577,7 @@
       <DataExecutionPrevention />
       <ImportLibrary>$(IntDir)Template.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>C:\Users\livinkorrupt\Desktop\Extension Development\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release;vendor\GLFW\lib\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Github Repos\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -602,6 +609,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;EDITOR;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -620,7 +628,7 @@
       <DataExecutionPrevention />
       <ImportLibrary>$(IntDir)Template.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>C:\Users\livinkorrupt\Desktop\Extension Development\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release;vendor\GLFW\lib\release</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Github Repos\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -674,7 +682,7 @@
       <DataExecutionPrevention />
       <ImportLibrary>$(IntDir)Template.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>C:\Users\livinkorrupt\Desktop\Extension Development\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release;vendor\GLFW\lib\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Github Repos\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -709,6 +717,7 @@
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;RUN_ONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -727,7 +736,7 @@
       <DataExecutionPrevention />
       <ImportLibrary>$(IntDir)Template.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>C:\Users\livinkorrupt\Desktop\Extension Development\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release;vendor\GLFW\lib\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Github Repos\EDIF\Extensions\LetGodSortEmOut\vendor\GLFW\lib\release</AdditionalLibraryDirectories>
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -757,6 +766,7 @@
     <ClCompile Include="MyShit\Core\Light.cpp" />
     <ClCompile Include="MyShit\Core\Scene.cpp" />
     <ClCompile Include="MyShit\Core\WorldMap.cpp" />
+    <ClCompile Include="MyShit\Helpers\AssetManager.cpp" />
     <ClCompile Include="MyShit\Helpers\Util.cpp" />
     <ClCompile Include="MyShit\Renderer\BlurBuffer.cpp" />
     <ClCompile Include="MyShit\Renderer\GBuffer.cpp" />
@@ -770,7 +780,6 @@
     <ClCompile Include="RaycastEngine.cpp" />
     <ClCompile Include="Runtime.cpp" />
     <ClCompile Include="stb_image.cpp" />
-    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Ext.def" />
@@ -830,6 +839,7 @@
     <ClInclude Include="MyShit\Core\Scene.h" />
     <ClInclude Include="MyShit\Core\WorldMap.h" />
     <ClInclude Include="MyShit\Header.h" />
+    <ClInclude Include="MyShit\Helpers\AssetManager.h" />
     <ClInclude Include="MyShit\Helpers\Util.h" />
     <ClInclude Include="MyShit\Renderer\BlurBuffer.h" />
     <ClInclude Include="MyShit\Renderer\GBuffer.h" />
@@ -841,7 +851,6 @@
     <ClInclude Include="MyShit\Renderer\Transform.h" />
     <ClInclude Include="RaycastEngine.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ext.rc" />

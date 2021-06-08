@@ -19,6 +19,7 @@
 #include "Renderer/Transform.h"
 #include <map>
 #include <algorithm>
+#include <filesystem>
 
 #include "rapidjson/document.h"
 #include <rapidjson/filereadstream.h>
@@ -114,6 +115,20 @@ struct Cell {
 	}
 };
 
+struct Coord2D
+{
+	int x;
+	int y;
+
+	Coord2D()
+	{}
+
+	Coord2D(int xpos, int ypos) {
+		x = xpos;
+		y = ypos;
+	}
+};
+
 using JSONDocument = rapidjson::GenericDocument<rapidjson::UTF8<>>;
 using JSONValue = rapidjson::GenericValue<rapidjson::UTF8<>>;
 
@@ -130,8 +145,8 @@ struct Edge {
 #define RENDER_MODE_UNLIT 0
 #define RENDER_MODE_LIT 1
 #define RENDER_MODE_LIT_WITH_LINE_OF_SIGHT 2
-#define RENDER_MODE_FUSION_WORLD_ONLY 3
-#define RENDER_MODE_FUSION_WORLD_PLUS_LIGHTING 3
+#define RENDER_MODE_FUSION 3
+#define RENDER_MODE_STAND_ALONE_GL 4
 
 /*
 bool operator==(const glm::vec2& other) const {

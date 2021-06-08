@@ -8,10 +8,10 @@ class Texture
 public: // Methods
 	Texture(std::string filename);
 	static void LoadTexture(std::string filename);
-	static GLuint GetTexIDByTexName(std::string name); 
+	static GLuint GetTexIDByTexName(std::string name);
 	static Texture* GetTexByName(std::string name);
 
-private: 
+private:
 	void ReadFromDisk();
 	void LoadToGL();
 
@@ -20,10 +20,12 @@ public: // fields
 	std::string name;
 	int width, height;
 
+	static std::string s_textureDirectory;
+
 private:
 	unsigned char* data;
 	int nrChannels;
-	
+
 	static std::vector<Texture> s_textures;
 };
 
