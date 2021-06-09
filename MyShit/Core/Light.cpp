@@ -27,18 +27,7 @@ Light::Light(std::string name, glm::vec2 position, glm::vec3 lightColor, float s
 
 void Light::DrawShadowCastingLight(Shader* shader, int gBuffgerID)
 {
-    AABB aabb;
-    aabb.lowerX = m_position.x - (m_texture->width / 2) * m_scale;
-    aabb.upperX = m_position.x + (m_texture->width / 2) * m_scale;
-    aabb.lowerY = m_position.y - (m_texture->height / 2) * m_scale;
-    aabb.upperY = m_position.y + (m_texture->height / 2) * m_scale;
-
-    float threshold = 0;
-
-    aabb.lowerX -= threshold;
-    aabb.upperX += threshold;
-    aabb.lowerY -= threshold;
-    aabb.upperY += threshold;
+    AABB aabb = this->GetAABB();
 
     // Light
     float srcX = m_position.x;
@@ -47,11 +36,12 @@ void Light::DrawShadowCastingLight(Shader* shader, int gBuffgerID)
     float testX = srcX + Camera2D::s_scrollX - SCR_WIDTH / 2;
     float testY = srcY + Camera2D::s_scrollY - SCR_HEIGHT / 2;
 
-    // Bail if light source is inside obstacle
-    int gridX = srcX / GRID_SIZE;
+    // Bail if light source is inside obstacle.
+    // You have commented this out because all tiles out of bands are obstacle now and that is gonna mean light can't come from off screen.
+    /*int gridX = srcX / GRID_SIZE;
     int gridY = srcY / GRID_SIZE;
     if (WorldMap::s_map[gridX][gridY].IsObstacle())
-        return;
+        return;*/
 
     if (m_visibilityPolygonNeedsUpdate)
     {
@@ -72,12 +62,14 @@ void Light::DrawShadowCastingLight(Shader* shader, int gBuffgerID)
             float ndc_y = (SCR_HEIGHT - y1) / SCR_HEIGHT * 2 - 1;
             vertices.push_back(glm::vec2(ndc_x, ndc_y));
         }
-        float x1 = std::get<1>(m_lightVisibilityPolygonPoints[0]);
-        float y1 = std::get<2>(m_lightVisibilityPolygonPoints[0]);
-        float ndc_x = x1 / SCR_WIDTH * 2 - 1;
-        float ndc_y = (SCR_HEIGHT - y1) / SCR_HEIGHT * 2 - 1;
-        vertices.push_back(glm::vec2(ndc_x, ndc_y));
-        m_vertexCount = vertices.size();
+        if (m_lightVisibilityPolygonPoints.size() > 0) {
+            float x1 = std::get<1>(m_lightVisibilityPolygonPoints[0]);
+            float y1 = std::get<2>(m_lightVisibilityPolygonPoints[0]);
+            float ndc_x = x1 / SCR_WIDTH * 2 - 1;
+            float ndc_y = (SCR_HEIGHT - y1) / SCR_HEIGHT * 2 - 1;
+            vertices.push_back(glm::vec2(ndc_x, ndc_y));
+            m_vertexCount = vertices.size();
+        }
 
         glBindVertexArray(m_vao);
         glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
@@ -130,6 +122,12 @@ bool Light::IsInScreenBounds()
     aabb.upperY = m_position.y + (m_texture->height / 2) * m_scale;
 
     // Return false if outside camera bounds duuuh dikkead
+   /* AABB aabbCamera = Camera2D::GetSCreenAABB();
+    if (aabb.upperX < aabbCamera.lowerX ||
+        aabb.lowerX > aabbCamera.upperX ||
+        aabb.upperY < aabbCamera.lowerY ||
+        aabb.lowerY > aabbCamera.upperY)
+        return false;*/
     AABB aabbCamera = Camera2D::GetSCreenAABB();
     if (aabb.upperX < aabbCamera.lowerX ||
         aabb.lowerX > aabbCamera.upperX ||
@@ -166,4 +164,14 @@ float Light::GetX()
 float Light::GetY()
 {
     return m_position.y;
+}
+
+AABB Light::GetAABB()
+{
+    AABB aabb;
+    aabb.lowerX = m_position.x - (m_texture->width / 2) * m_scale;
+    aabb.upperX = m_position.x + (m_texture->width / 2) * m_scale;
+    aabb.lowerY = m_position.y - (m_texture->height / 2) * m_scale;
+    aabb.upperY = m_position.y + (m_texture->height / 2) * m_scale;
+    return aabb;
 }

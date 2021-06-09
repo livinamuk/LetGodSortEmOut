@@ -111,8 +111,13 @@ struct Cell {
 	bool edge_exists[4];
 
 	bool IsObstacle() {
-		return (tile == Tile::WALL);
+		return obstacle;
 	}
+	void SetObstacle(bool value) {
+		obstacle = value;
+	}
+private:
+	bool obstacle = false;
 };
 
 struct Coord2D

@@ -43,70 +43,84 @@ int Extension::GetLightCount()
 	return count;
 }
 
-const char* Extension::GetLightIDbyIndex(int index)
+int Extension::GetLightKeyByName(const char* name)
 {
-	if (index < 0 || index >= Scene::s_lights.size())
-		return "out of range";
-	return Scene::s_lights[index].m_name.c_str();
+	return Scene::GetLightKeyByName(name);
 }
 
-int Extension::GetLightXByIndex(int index)
+
+/*const char* Extension::GetLightIDbyKey(int key)
 {
-	if (index < 0 || index >= Scene::s_lights.size())
+	if (Scene::s_lights.find(key) != Scene::s_lights.end())
+		return Scene::s_lights[key].m_name.c_str();
+	else
+}*/
+
+int Extension::GetLightXByKey(int key)
+{
+	if (Scene::LightExists(key))
+		return (int)Scene::s_lights[key].GetX();
+	else
 		return -1;
-	return (int)Scene::s_lights[index].GetX();
 }
 
-int Extension::GetLightYByIndex(int index)
+int Extension::GetLightYByKey(int key)
 {
-	if (index < 0 || index >= Scene::s_lights.size())
+	if (Scene::LightExists(key))
+		return (int)Scene::s_lights[key].GetY();
+	else
 		return -1;
-	return (int)Scene::s_lights[index].GetY();
 }
 
-int Extension::GetLightAngleByIndex(int index)
+float Extension::GetLightAngleByKey(int key)
 {
-	if (index < 0 || index >= Scene::s_lights.size())
-		return -1;
-	return Scene::s_lights[index].m_angle;
+	if (Scene::LightExists(key))
+		return Scene::s_lights[key].m_angle;
+	else
+		return 0.0f;
 }
 
-float Extension::GetLightScaleByIndex(int index)
+float Extension::GetLightScaleByKey(int key)
 {
-	if (index < 0 || index >= Scene::s_lights.size())
-		return -1;
-	return Scene::s_lights[index].m_scale;
+	if (Scene::LightExists(key))
+		return Scene::s_lights[key].m_scale;
+	else
+		return 0.0f;
 }
 
-float Extension::GetLightRedComponentByIndex(int index)
+float Extension::GetLightRedComponentByKey(int key)
 {
-	if (index < 0 || index >= Scene::s_lights.size())
-		return -1;
-	return Scene::s_lights[index].m_color.x;
+	if (Scene::LightExists(key))
+		return Scene::s_lights[key].m_color.x;
+	else
+		return 0.0f; 
 }
 
-float Extension::GetLightGreenComponentByIndex(int index)
+float Extension::GetLightGreenComponentByKey(int key)
 {
-	if (index < 0 || index >= Scene::s_lights.size())
-		return -1;
-	return Scene::s_lights[index].m_color.g;
+	if (Scene::LightExists(key))
+		return Scene::s_lights[key].m_color.g;
+	else
+		return 0.0f; 
 }
 
-float Extension::GetLightBlueComponentByIndex(int index)
+float Extension::GetLightBlueComponentByKey(int key)
 {
-	if (index < 0 || index >= Scene::s_lights.size())
-		return -1;
-	return Scene::s_lights[index].m_color.b;
+	if (Scene::LightExists(key))
+		return Scene::s_lights[key].m_color.b;
+	else
+		return 0.0f; 
 }
 
-float Extension::GetLightBrightnessByIndex(int index)
+float Extension::GetLightBrightnessByKey(int key)
 {
-	if (index < 0 || index >= Scene::s_lights.size())
-		return -1;
-	return Scene::s_lights[index].m_brightness;
+	if (Scene::LightExists(key))
+		return Scene::s_lights[key].m_brightness;
+	else
+		return 0.0f; 
 }
 
-const char* Extension::GetLightTextureByIndex(int index)
+const char* Extension::GetLightTextureByKey(int key)
 {
 	return "TO DO";
 }

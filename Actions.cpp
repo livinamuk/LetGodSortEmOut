@@ -47,6 +47,7 @@ void Extension::ToggleLIGHTING()
     Renderer::ToggleLIGHTING();
 }
 
+/*
 void Extension::RemoveLightByID(const char* name)
 {
     for (int i = 0; i < Scene::s_lights.size(); i++)
@@ -59,6 +60,11 @@ void Extension::RemoveLightByID(const char* name)
             return;
         }
     }
+}*/
+
+void Extension::RemoveLightByKey(int key)
+{
+    Scene::s_lights.erase(key);
 }
 
 void Extension::SetLOSShadowSoftness(int levels)
@@ -97,7 +103,7 @@ void Extension::PauseRendering()
     RaycastEngine::s_render = false;
 }*/
 
-void Extension::PairNewLightToActive(int fixedValue, bool hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, int type, float brightness, int rotation)
+void Extension::PairNewLightToActive(int fixedValue, bool hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, int type, float brightness, int angle)
 {
 
     LPRO objectPtr = Runtime.LPROFromFixed(fixedValue);
@@ -107,54 +113,58 @@ void Extension::PairNewLightToActive(int fixedValue, bool hotspot, int xOffset, 
         return;
 
     // Otherwise, create new fixed value light
-    Scene::AddFixedValueLight(fixedValue, hotspot, xOffset, yOffset, r, g, b, scale, type, brightness, rotation);
+    Scene::AddFixedValueLight(fixedValue, hotspot, xOffset, yOffset, r, g, b, scale, type, brightness, angle);
 }
 
-void Extension::NewLight(const char* name, int x, int y, float r, float g, float b, float scale, int type, float brightness, int rotate)
+void Extension::NewLight(const char* name, int x, int y, float r, float g, float b, float scale, int type, float brightness, int angle)
 {
-    Scene::AddRuntimeLight(name, x, y, glm::vec3(r, g, b), scale, type, brightness, rotate);
+    Scene::AddNamedLight(name, x, y, glm::vec3(r, g, b), scale, type, brightness, angle);
 }
 
-void Extension::SetLightPosition(const char* name, int x, int y)
+void Extension::SetLightPosition(int key, int x, int y)
 {
-    Light* light = Scene::GetLightByName(name);
-    if (light)
-        light->SetPosition(x, y);
+    if (Scene::LightExists(key))
+        Scene::s_lights[key].SetPosition(x, y);
+    else {
+
+        Util::Log(std::to_string(key) + " not found\n");
+
+        for (auto& it : Scene::s_lights)
+        {
+            int k = it.first;
+            Util::Log(std::to_string(k) + "");
+        }
+    }
 }
 
-void Extension::SetLightColor(const char* name, float r, float g, float b)
+void Extension::SetLightColor(int key, float r, float g, float b)
 {
-    Light* light = Scene::GetLightByName(name);
-    if (light)
-        light->m_color = glm::vec3(r, g, b);
+    if (Scene::LightExists(key))
+        Scene::s_lights[key].m_color = glm::vec3(r, g, b);
 }
 
-void Extension::SetLightScale(const char* name, float scale)
+void Extension::SetLightScale(int key, float scale)
 {
-    Light* light = Scene::GetLightByName(name);
-    if (light)
-        light->m_scale = scale;
+    if (Scene::LightExists(key))
+        Scene::s_lights[key].m_scale = scale;
 }
 
-void Extension::SetLightType(const char* name, int type)
+void Extension::SetLightType(int key, int type)
 {
-    Light* light = Scene::GetLightByName(name);
-    if (light)
-        light->m_type = type;
+    if (Scene::LightExists(key))
+        Scene::s_lights[key].m_type = type;
 }
 
-void Extension::SetLightBrightness(const char* name, float brightness)
+void Extension::SetLightBrightness(int key, float brightness)
 {
-    Light* light = Scene::GetLightByName(name);
-    if (light)
-        light->m_brightness = brightness;
+    if (Scene::LightExists(key))
+        Scene::s_lights[key].m_brightness = brightness;
 }
 
-void Extension::SetLightAngle(const char* name, float angle)
+void Extension::SetLightAngle(int key, float angle)
 {
-    Light* light = Scene::GetLightByName(name);
-    if (light)
-        light->m_angle = angle;
+    if (Scene::LightExists(key))
+        Scene::s_lights[key].m_angle = angle;
 }
 
 void Extension::SetCellValue(int x, int y, int value)

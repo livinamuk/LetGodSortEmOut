@@ -312,9 +312,8 @@ void Renderer::LightingPass()
     Light::s_lightsDrawn = 0;
 
     // Render shadow casting lights
-    for (int i = 0; i < Scene::s_lights.size(); i++)
-    {
-        Light& light = Scene::s_lights[i];
+    for (auto& it : Scene::s_lights) {
+        Light& light = it.second; 
         if (light.IsShadowCasting() && light.IsInScreenBounds() && WorldMap::IsPixelPositionInMapBounds(light.GetX(), light.GetY()))
             light.DrawShadowCastingLight(&s_shadowCastingLightShader, s_gBuffer.ID);
     }
@@ -389,7 +388,8 @@ void Renderer::HandleEditorInput()
     // delete light
     if (Input::s_keyPressed[HELL_KEY_BACKSPACE] && s_selectedLight != -1) {
         // Scene::s_lights[s_selectedLight].RemoveGLData();
-        Scene::s_lights.erase(Scene::s_lights.begin() + s_selectedLight);
+        Scene::s_lights.erase(s_selectedLight); 
+        //Scene::s_lights.erase(Scene::s_lights.begin() + s_selectedLight);
         s_selectedLight = -1;
     }
 

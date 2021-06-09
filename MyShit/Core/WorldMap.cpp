@@ -16,10 +16,10 @@ void WorldMap::Update()
 	s_rayCount = 0;
 
 	// Draw tiles
-	if (Input::s_leftMouseDown && Renderer::s_editorMode)
+	if (Renderer::s_hoveredLight == -1 && Renderer::s_selectedLight == -1 && Input::s_leftMouseDown && Renderer::s_editorMode)
 		WorldMap::SetCell(Input::s_gridX, Input::s_gridY, Tile::WALL);
 
-	if (Input::s_rightMouseDown && Renderer::s_editorMode)
+	if (Renderer::s_hoveredLight == -1 && Renderer::s_selectedLight == -1 && Input::s_rightMouseDown && Renderer::s_editorMode)
 		WorldMap::SetCell(Input::s_gridX, Input::s_gridY, Tile::DIRT);
 
 	if (Input::s_keyPressed[HELL_KEY_N])
@@ -92,7 +92,7 @@ bool WorldMap::IsCellWithinAABB(int x, int y, AABB* aabb)
 {
 	// this actually returns if the cell is outside the AABB 
 
-	int cellThreshold = 5; // OPTIMIZATION: you could consider setting this to 0 and increasing the size of the width and height of light somewhere...
+	int cellThreshold = 0; // OPTIMIZATION: you could consider setting this to 0 and increasing the size of the width and height of light somewhere...
 
 	if (x < (aabb->lowerX / GRID_SIZE) - cellThreshold)
 		return true;
@@ -132,7 +132,18 @@ void WorldMap::SetCell(int x, int y, Tile tile)
 		return;
 	s_map[x][y].tile = tile;
 
-	Scene::UpdateAllLights();
+	x *= GRID_SIZE;
+	y *= GRID_SIZE;
+
+	// Update only lights that need it
+	for (auto& it : Scene::s_lights)
+	{
+		Light& light = it.second;
+
+		AABB aabb = light.GetAABB();
+		if (x > aabb.lowerX && x < aabb.upperX && y > aabb.lowerY && y < aabb.upperY)
+			light.m_visibilityPolygonNeedsUpdate = true;
+	}
 }
 
 void WorldMap::BuildEdgeMapFromWorldMap(AABB* aabb, int inset)
@@ -146,6 +157,14 @@ void WorldMap::BuildEdgeMapFromWorldMap(AABB* aabb, int inset)
 			{
 				s_map[x][y].edge_exists[j] = false;
 				s_map[x][y].edge_id[j] = -1;
+
+				// Reset obstacle here
+				Tile tile = s_map[x][y].tile;
+				s_map[x][y].SetObstacle(tile == Tile::WALL);
+
+				// Also an obstacle if it out of aabb.
+				if (x < aabb->lowerX / GRID_SIZE || x > aabb->upperX / GRID_SIZE || y < aabb->lowerY / GRID_SIZE || y > aabb->upperY / GRID_SIZE)
+					s_map[x][y].SetObstacle(true);
 			}
 
 	// container to store found obstacles within AABB
@@ -164,10 +183,11 @@ void WorldMap::BuildEdgeMapFromWorldMap(AABB* aabb, int inset)
 
 			// If this cell exists, check if it needs edges
 			//if (cell->IsObstacle())
-			if (cell->IsObstacle() && IsCellWithinAABB(x, y, aabb))
+			if (cell->IsObstacle())
 			{
 				// store it
-				wallsWithinRange.push_back(Coord2D(x, y));
+				if (IsCellWithinAABB(x, y, aabb))
+					wallsWithinRange.push_back(Coord2D(x, y));
 
 				// If this cell has no western neighbour, it needs a western edge
 				if (w && !w->IsObstacle() && !IsCellWithinAABB(x - 1, y, aabb))
@@ -428,16 +448,6 @@ std::vector<std::tuple<float, float, float>> WorldMap::CalculateVisibilityPolygo
 
 				if (bValid)// Add intersection point to visibility polygon perimeter
 				{
-					//float ox, float oy
-
-				/*	glm::vec2 difference = glm::vec2(ox, oy) - glm::vec2(min_px, min_py);
-					difference = glm::normalize(difference);
-
-					float scale = 15;
-					min_px -= difference.x * scale;
-					min_py -= difference.y * scale;*/
-
-
 					visibilityPolygonPoints.push_back({ min_ang, min_px, min_py });
 				}
 			}

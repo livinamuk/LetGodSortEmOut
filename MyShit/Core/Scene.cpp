@@ -1,31 +1,32 @@
 #include "Scene.h"
 
-std::vector<Light> Scene::s_lights;
+std::unordered_map<int, Light> Scene::s_lights;
+unsigned int Scene::s_lightKeyCounter;
 
 void Scene::AddLight(int x, int y, glm::vec3 lightColor, float lightScale, int lightType, float brightness, float angle)
 {
 	Light light("noname", glm::vec2(x, y), lightColor, lightScale, lightType, brightness, angle);
-	s_lights.push_back(light);
+	s_lights[s_lightKeyCounter] = light;
+	s_lightKeyCounter++;
 }
 
-void Scene::AddRuntimeLight(const char* name, int x, int y, glm::vec3 color, float scale, int type, float brightness, float angle)
+void Scene::AddNamedLight(const char* name, int x, int y, glm::vec3 color, float scale, int type, float brightness, float angle)
 {
 	Light light(name, glm::vec2(x, y), color, scale, type, brightness, angle);
-	s_lights.push_back(light);
+	s_lights[s_lightKeyCounter] = light;
+	s_lightKeyCounter++;
 }
 
 void Scene::AddFixedValueLight(int fixedValue, int hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, int type, float brightness, float angle)
 {
-	std::string name = "object_light_" + std::to_string(fixedValue);
-	Light light(name, glm::vec2(0, 0), glm::vec3(r, g, b), scale, type, brightness, angle);
-
+	Light light("fixed_value_light", glm::vec2(0, 0), glm::vec3(r, g, b), scale, type, brightness, angle);
 	light.m_pairedObjectData.isPaired = true;
 	light.m_pairedObjectData.fixedValue = fixedValue;
 	light.m_pairedObjectData.followHotSpot = hotspot;
 	light.m_pairedObjectData.xOffset = xOffset;
-	light.m_pairedObjectData.yOffset = yOffset;
-
-	s_lights.push_back(light);
+	light.m_pairedObjectData.yOffset = yOffset; 
+	s_lights[s_lightKeyCounter] = light;
+	s_lightKeyCounter++; 
 }
 
 void Scene::SaveScene(std::string filename)
@@ -39,7 +40,11 @@ void Scene::SaveScene(std::string filename)
 	// Lights
 	rapidjson::Value lightsArray;
 	lightsArray.SetArray();
-	for (Light& light : s_lights) {
+
+	//for (Light& light : s_lights) {
+	for (auto& it : s_lights)
+	{
+		Light& light = it.second;
 		rapidjson::Value flagObject;
 		flagObject.SetObject();
 		SaveInt(&flagObject, "X", light.GetX(), allocator);
@@ -117,7 +122,7 @@ void Scene::ResetScene()
 	s_lights.clear();
 }
 
-Light* Scene::GetLightByName(std::string name)
+/*Light* Scene::GetLightByName(std::string name)
 {
 	for (int i = 0; i < Scene::s_lights.size(); i++)
 	{
@@ -125,12 +130,32 @@ Light* Scene::GetLightByName(std::string name)
 			return &Scene::s_lights[i];
 	}
 	return nullptr;
-}
+}*/
 
 void Scene::UpdateAllLights()
 {
-	for (Light& light : s_lights)
+	for (auto& it : s_lights)
+	{
+		Light& light = it.second;
 		light.m_visibilityPolygonNeedsUpdate = true;
+	}
+}
+
+int Scene::GetLightKeyByName(const char* name)
+{
+	std::string query = name;
+	for (auto& it : s_lights)
+		if (it.second.m_name == query)
+			return it.first;
+	return -1;
+}
+
+bool Scene::LightExists(int key)
+{
+	if (Scene::s_lights.find(key) != Scene::s_lights.end())
+		return true;
+	else
+		return false;
 }
 
 void Scene::SaveString(rapidjson::Value* object, std::string elementName, std::string string, rapidjson::Document::AllocatorType& allocator)

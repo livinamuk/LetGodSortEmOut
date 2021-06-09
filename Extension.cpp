@@ -30,7 +30,7 @@ Extension::Extension(LPRDATA _rdPtr, LPEDATA edPtr, fpcob cobPtr)
     LinkAction(13, SetCellValue);
     LinkAction(14, ToggleLOS);
     LinkAction(15, ToggleLIGHTING);
-    LinkAction(16, RemoveLightByID);
+    LinkAction(16, RemoveLightByKey);
     LinkAction(17, SetLOSShadowSoftness);
     LinkAction(18, SetLightingShadowSoftness);
     LinkAction(19, ToggleEditor);
@@ -45,16 +45,16 @@ Extension::Extension(LPRDATA _rdPtr, LPEDATA edPtr, fpcob cobPtr)
     LinkExpression(4, GetMapWidth);
     LinkExpression(5, GetMapHeight);
     LinkExpression(6, GetLightCount);
-    LinkExpression(7, GetLightIDbyIndex);
-    LinkExpression(8, GetLightXByIndex);
-    LinkExpression(9, GetLightYByIndex);
-    LinkExpression(10, GetLightAngleByIndex);
-    LinkExpression(11, GetLightScaleByIndex);
-    LinkExpression(12, GetLightRedComponentByIndex);
-    LinkExpression(13, GetLightGreenComponentByIndex);
-    LinkExpression(14, GetLightBlueComponentByIndex);
-    LinkExpression(15, GetLightBrightnessByIndex);
-    LinkExpression(16, GetLightTextureByIndex);
+    LinkExpression(7, GetLightKeyByName);
+    LinkExpression(8, GetLightXByKey);
+    LinkExpression(9, GetLightYByKey);
+    LinkExpression(10, GetLightAngleByKey);
+    LinkExpression(11, GetLightScaleByKey);
+    LinkExpression(12, GetLightRedComponentByKey);
+    LinkExpression(13, GetLightGreenComponentByKey);
+    LinkExpression(14, GetLightBlueComponentByKey);
+    LinkExpression(15, GetLightBrightnessByKey);
+    LinkExpression(16, GetLightTextureByKey);
     LinkExpression(17, GetLOSSoftShadowsAmount);
     LinkExpression(18, GetLightingSoftShadowsAmount);
     LinkExpression(19, GetWallEdgeInset);
@@ -233,29 +233,33 @@ long Extension::Expression(int ID, LPRDATA rdPtr, long param)
 
 void Extension::UpdateFixedValueLights()
 {
+    std::vector<int> keysToErase;
+
     // Itereate over all lights
-    for (int i = 0; i < Scene::s_lights.size(); i++)
+    for (auto& it : Scene::s_lights)
     {
-       // Get pointer to light
-       Light* light = &Scene::s_lights[i];
+        // Get pointer to light
+        Light& light = it.second;
 
        // If light is paired to an active...
-        if (light->IsPairedToObject())
+        if (light.IsPairedToObject())
         {
             // Get active object pointer from the light's stored fixed value
-            LPRO objectPtr = Runtime.LPROFromFixed(light->m_pairedObjectData.fixedValue);
+            LPRO objectPtr = Runtime.LPROFromFixed(light.m_pairedObjectData.fixedValue);
 
-            // Delete the light if the active object no longer exists
+            // Mark for deletion if the active object no longer exists
             if (!objectPtr) {
-                Scene::s_lights.erase(Scene::s_lights.begin() + i);
-                i--;
+                keysToErase.push_back(it.first);
             }
             else {
             // Otherwise update the light's position with that of active 
-                int xPos = objectPtr->roHo.hoX + light->m_pairedObjectData.xOffset;
-                int yPos = objectPtr->roHo.hoY + light->m_pairedObjectData.yOffset;;
-                light->SetPosition(xPos, yPos);
+                int xPos = objectPtr->roHo.hoX + light.m_pairedObjectData.xOffset;
+                int yPos = objectPtr->roHo.hoY + light.m_pairedObjectData.yOffset;;
+                light.SetPosition(xPos, yPos);
             }
         }
     }
+    // Delete all keys that need to GOs_lights
+    for (int key : keysToErase)
+        Scene::s_lights.erase(key);
 }
