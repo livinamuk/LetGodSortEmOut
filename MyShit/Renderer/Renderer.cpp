@@ -20,9 +20,9 @@ GLuint Renderer::s_playerVisibilityVBO;
 
 std::vector<BlurBuffer> Renderer::s_BlurBuffers;
 
-int Renderer::s_softShadowsAmountLOS = 1;
+int Renderer::s_softShadowsAmountLOS = 2;
 int Renderer::s_softShadowsAmountLighting = 1;
-int Renderer::s_wallEdgeInset = 0;
+int Renderer::s_wallEdgeInset = 4;
 
 int Renderer::s_renderMode = RENDER_MODE_STAND_ALONE_GL;
 int Renderer::s_selectedLight = -1;
@@ -31,6 +31,10 @@ int Renderer::s_hoveredLight = -1;
 bool Renderer::s_editorMode = false;
 bool Renderer::s_renderLOS = true;
 bool Renderer::s_renderLIGHTING = true;
+
+int Renderer::s_testCounter = 0;
+int Renderer::s_lightUpdateCounter = 0;
+int Renderer::s_maxLightUpdatesPerFrame = 2;
 
 void Renderer::Init()
 {
@@ -83,9 +87,30 @@ void Renderer::RenderFrame()
         LightingPass();
         RenderPlayerLineOfSight(&s_player_line_of_sight_shader);
 
-        if (s_editorMode)
+        if (s_editorMode) {
             RenderEdgeMap(&s_solid_color_shader);
 
+            for (auto p : WorldMap::s_visibilityPolygonPoints) {
+                float x = std::get<1>(p);
+                float y = std::get<2>(p);
+                DrawLineByWorldCoords(&s_solid_color_shader, x, y, Input::s_mouseWorldX, Input::s_mouseWorldY, HELL_RED);
+            }
+
+            AABB screenAABB = Camera2D::GetSCreenAABB();
+            RenderAABB(&s_solid_color_shader, screenAABB);
+
+            /* ShadowCastingShape* shape = &Scene::s_shadowCastingShape[0];
+             DrawLineByWorldCoords(&s_solid_color_shader, shape->GetCornerA().x, shape->GetCornerA().y, shape->GetCornerB().x, shape->GetCornerB().y, HELL_YELLOW);
+             DrawLineByWorldCoords(&s_solid_color_shader, shape->GetCornerC().x, shape->GetCornerC().y, shape->GetCornerB().x, shape->GetCornerB().y, HELL_YELLOW);
+             DrawLineByWorldCoords(&s_solid_color_shader, shape->GetCornerC().x, shape->GetCornerC().y, shape->GetCornerD().x, shape->GetCornerD().y, HELL_YELLOW);
+             DrawLineByWorldCoords(&s_solid_color_shader, shape->GetCornerA().x, shape->GetCornerA().y, shape->GetCornerD().x, shape->GetCornerD().y, HELL_YELLOW);
+             */
+
+             /* int key = Scene::GetLightKeyByName("PlayerLight");
+              Light* playerLight = &Scene::s_lights[key];
+              AABB playerLightAABB = playerLight->GetAABB();
+              RenderAABB(&s_solid_color_shader, playerLightAABB);*/
+        }
         RenderFinalImage(&s_composite);
 
         // Editor mode
@@ -116,13 +141,6 @@ void Renderer::RenderFrame()
         s_textued_2D_quad_shader.setVec3("color", glm::vec3(1));
         TextBlitterPass(&s_textued_2D_quad_shader);
     }
-
-    // player visi poly
-   /* for (auto p : WorldMap::s_visibilityPolygonPoints) {
-        float x = std::get<1>(p);
-        float y = std::get<2>(p);
-        //  DrawLineByWorldCoords(&s_solid_color_shader, x, y, Input::s_mouseWorldX, Input::s_mouseWorldY, HELL_RED);
-    }*/
 }
 
 void Renderer::CheckForKeyPresses()
@@ -135,24 +153,25 @@ if (s_renderMode == 3)
     s_renderMode = 0;
 */
 
-    if (s_selectedLight != -1) {
+    if (s_selectedLight != -1)
+    {
+        Light* selectedLight = &Scene::s_lights[s_selectedLight];
 
         if (Input::s_keyDown[HELL_KEY_Q])
-            Scene::s_lights[s_selectedLight].SetPosition(Input::s_mouseWorldX, Input::s_mouseWorldY);
+            selectedLight->SetPosition(Input::s_mouseWorldX, Input::s_mouseWorldY);
 
         if (Input::s_keyPressed[HELL_KEY_T])
-            Scene::s_lights[s_selectedLight].NextType();
+            selectedLight->NextType();
 
         if (Input::s_keyPressed[HELL_KEY_EQUAL])
-            Scene::s_lights[s_selectedLight].m_scale += 0.5f;
+            selectedLight->SetScale(selectedLight->GetScale() + 0.5f);
         if (Input::s_keyPressed[HELL_KEY_MINUS])
-            Scene::s_lights[s_selectedLight].m_scale -= 0.5f;
+            selectedLight->SetScale(selectedLight->GetScale() - 0.5f);
 
         if (Input::s_keyPressed[HELL_KEY_RIGHT_BRACKET])
-            Scene::s_lights[s_selectedLight].m_brightness += 0.1f;
+            selectedLight->m_brightness += 0.1f;
         if (Input::s_keyPressed[HELL_KEY_LEFT_BRACKET])
-            Scene::s_lights[s_selectedLight].m_brightness -= 0.1f;
-
+            selectedLight->m_brightness -= 0.1f;
     }
 }
 
@@ -281,6 +300,8 @@ void Renderer::DrawTile(Shader* shader, Tile tile, int gridX, int gridY)
 
 void Renderer::LightingPass()
 {
+    s_testCounter = 0;
+
     glBindFramebuffer(GL_FRAMEBUFFER, s_gBuffer.ID);
     static const float white[4] = { 1, 1, 1, 1 };
     glClearTexImage(s_gBuffer.gLineOfSight, 0, GL_RGBA, GL_FLOAT, white);
@@ -312,11 +333,13 @@ void Renderer::LightingPass()
     Light::s_lightsDrawn = 0;
 
     // Render shadow casting lights
-    for (auto& it : Scene::s_lights) {
-        Light& light = it.second; 
+    for (auto& it : Scene::s_lights)
+    {
+        Light& light = it.second;
         if (light.IsShadowCasting() && light.IsInScreenBounds() && WorldMap::IsPixelPositionInMapBounds(light.GetX(), light.GetY()))
-            light.DrawShadowCastingLight(&s_shadowCastingLightShader, s_gBuffer.ID);
+            light.DrawShadowCastingLight(&s_shadowCastingLightShader);
     }
+
 
     glDisable(GL_BLEND);
     DownScale(s_gBuffer.ID, GL_COLOR_ATTACHMENT2, s_softShadowsAmountLighting);
@@ -349,14 +372,17 @@ void Renderer::HandleEditorInput()
 
     // Lights
     s_hoveredLight = -1;
-    for (int i = 0; i < Scene::s_lights.size(); i++) {
+
+    // Are you hovering over a light?
+    for (auto& it : Scene::s_lights)
+    {
+        Light& light = it.second;
         int threshold = 20;
-        Light* light = &Scene::s_lights[i];
-        if (Input::s_mouseWorldX > light->GetX() - threshold
-            && Input::s_mouseWorldX < light->GetX() + threshold
-            && Input::s_mouseWorldY > light->GetY() - threshold
-            && Input::s_mouseWorldY < light->GetY() + threshold)
-            s_hoveredLight = i;
+        if (Input::s_mouseWorldX > light.GetX() - threshold
+            && Input::s_mouseWorldX < light.GetX() + threshold
+            && Input::s_mouseWorldY > light.GetY() - threshold
+            && Input::s_mouseWorldY < light.GetY() + threshold)
+            s_hoveredLight = it.first;
     }
 
     // Mouse stuff
@@ -387,15 +413,13 @@ void Renderer::HandleEditorInput()
 
     // delete light
     if (Input::s_keyPressed[HELL_KEY_BACKSPACE] && s_selectedLight != -1) {
-        // Scene::s_lights[s_selectedLight].RemoveGLData();
-        Scene::s_lights.erase(s_selectedLight); 
-        //Scene::s_lights.erase(Scene::s_lights.begin() + s_selectedLight);
+        Scene::s_lights.erase(s_selectedLight);;
         s_selectedLight = -1;
     }
 
     // new light
-    if (Input::s_keyPressed[HELL_KEY_E] || Input::s_keyDown[HELL_KEY_V]) {
-        Scene::AddLight(Input::s_mouseWorldX, Input::s_mouseWorldY, glm::vec3(1), 2, ROOM_LIGHT, 1, 0);
+    if (Input::s_keyPressed[HELL_KEY_SPACE] || Input::s_keyDown[HELL_KEY_V]) {
+        Scene::AddLight(Input::s_mouseWorldX, Input::s_mouseWorldY, glm::vec3(1), 2, "Light_Room.png", 1, 0, true);
         //s_selectedLight = -1;
     }
 
@@ -462,6 +486,8 @@ void Renderer::HotLoadShaders()
     s_solid_color_shader.ReloadShader();
     s_composite.ReloadShader();
     s_textued_2D_quad_shader.ReloadShader();
+    s_blurHorizontalShader.ReloadShader();
+    s_blurVerticalShader.ReloadShader();
 }
 
 void Renderer::DrawPoint(Shader* shader, int x, int y, glm::vec3 color)
@@ -526,16 +552,17 @@ void Renderer::RenderLightIcons(Shader* shader)
     shader->use();
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    for (int i = 0; i < Scene::s_lights.size(); i++)
+
+    for (auto& it : Scene::s_lights)
     {
-        Light* light = &Scene::s_lights[i];
-        shader->setVec3("color", light->m_color);
-        float x = light->GetX() - 32;
-        float y = light->GetY() - 32;
+        Light& light = it.second;
+        shader->setVec3("color", light.m_color);
+        float x = light.GetX() - 32;
+        float y = light.GetY() - 32;
         Texture* texture = Texture::GetTexByName("Light_Icon.png");
         Quad2D::RenderQuad(shader, texture, x, y);
 
-        if (i == s_selectedLight) {
+        if (it.first == s_selectedLight) {
             Texture* texture = Texture::GetTexByName("Light_Icon_Select.png");
             Quad2D::RenderQuad(shader, texture, x, y);
         }
@@ -643,6 +670,15 @@ void Renderer::SetLineOfSightBlurLevels(int levels)
 void Renderer::SetLightingBlurLevels(int levels)
 {
     s_softShadowsAmountLighting = levels;// std::min(std::max(0, levels), 3);
+}
+
+void Renderer::RenderAABB(Shader* shader, AABB& aabb)
+{
+
+    DrawLineByWorldCoords(&s_solid_color_shader, aabb.lowerX, aabb.lowerY, aabb.lowerX, aabb.upperY, HELL_YELLOW);
+    DrawLineByWorldCoords(&s_solid_color_shader, aabb.upperX, aabb.upperY, aabb.lowerX, aabb.upperY, HELL_YELLOW);
+    DrawLineByWorldCoords(&s_solid_color_shader, aabb.upperX, aabb.upperY, aabb.upperX, aabb.lowerY, HELL_YELLOW);
+    DrawLineByWorldCoords(&s_solid_color_shader, aabb.lowerX, aabb.lowerY, aabb.upperX, aabb.lowerY, HELL_YELLOW);
 }
 
 void Renderer::DrawLineByWorldCoords(Shader* shader, int x, int y, int x2, int y2, glm::vec3 color)

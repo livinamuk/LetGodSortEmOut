@@ -15,19 +15,17 @@ void WorldMap::Update()
 {
 	s_rayCount = 0;
 
-	// Draw tiles
-	if (Renderer::s_hoveredLight == -1 && Renderer::s_selectedLight == -1 && Input::s_leftMouseDown && Renderer::s_editorMode)
-		WorldMap::SetCell(Input::s_gridX, Input::s_gridY, Tile::WALL);
+	// Edit map
+	if (Renderer::s_renderMode == RENDER_MODE_STAND_ALONE_GL)
+	{
+		if (Renderer::s_hoveredLight == -1 && Renderer::s_selectedLight == -1 && Input::s_leftMouseDown && Renderer::s_editorMode)
+			WorldMap::SetCell(Input::s_gridX, Input::s_gridY, Tile::WALL);
+		if (Renderer::s_hoveredLight == -1 && Renderer::s_selectedLight == -1 && Input::s_rightMouseDown && Renderer::s_editorMode)
+			WorldMap::SetCell(Input::s_gridX, Input::s_gridY, Tile::DIRT);
 
-	if (Renderer::s_hoveredLight == -1 && Renderer::s_selectedLight == -1 && Input::s_rightMouseDown && Renderer::s_editorMode)
-		WorldMap::SetCell(Input::s_gridX, Input::s_gridY, Tile::DIRT);
-
-	if (Input::s_keyPressed[HELL_KEY_N])
-		NewMap();
-
-
-
-
+		if (Input::s_keyPressed[HELL_KEY_N])
+			NewMap();
+	}
 }
 
 void WorldMap::NewMap()
@@ -38,10 +36,11 @@ void WorldMap::NewMap()
 			s_map[x][y].tile = Tile::DIRT;
 }
 
-void WorldMap::LoadMap()
+void WorldMap::LoadMap(const char* filepath)
 {
 	std::string line;
-	std::ifstream MyFile("res/WorldMap.txt");
+	//std::ifstream MyFile("res/WorldMap.txt");
+	std::ifstream MyFile(filepath);
 	int y = 0;
 
 	while (std::getline(MyFile, line)) {
@@ -57,17 +56,18 @@ void WorldMap::LoadMap()
 			else
 				s_map[x][y].tile = Tile::WALL;
 
-			std::cout << num;
+			//std::cout << num;
 		}
-		std::cout << "\n";
+		//std::cout << "\n";
 		y++;
 	}
 	MyFile.close();
 }
 
-void WorldMap::SaveMap()
+void WorldMap::SaveMap(const char* filepath)
 {
-	std::ofstream MyFile("res/WorldMap.txt");
+	//std::ofstream MyFile("res/WorldMap.txt");
+	std::ofstream MyFile(filepath);
 
 	for (int y = 0; y < MAP_HEIGHT; y++)
 	{
@@ -79,6 +79,7 @@ void WorldMap::SaveMap()
 
 }
 
+
 void WorldMap::SaveInt(rapidjson::Value* object, std::string elementName, int number, rapidjson::Document::AllocatorType& allocator)
 {
 	rapidjson::Value name(elementName.c_str(), allocator);
@@ -88,12 +89,9 @@ void WorldMap::SaveInt(rapidjson::Value* object, std::string elementName, int nu
 }
 
 
-bool WorldMap::IsCellWithinAABB(int x, int y, AABB* aabb)
+bool WorldMap::IsCellOusideAABB(int x, int y, AABB* aabb)
 {
-	// this actually returns if the cell is outside the AABB 
-
-	int cellThreshold = 0; // OPTIMIZATION: you could consider setting this to 0 and increasing the size of the width and height of light somewhere...
-
+	int cellThreshold = 0;
 	if (x < (aabb->lowerX / GRID_SIZE) - cellThreshold)
 		return true;
 
@@ -106,8 +104,11 @@ bool WorldMap::IsCellWithinAABB(int x, int y, AABB* aabb)
 	if (y > (aabb->upperY / GRID_SIZE) + cellThreshold)
 		return true;
 
-	// what is this even doing??
+	// What is this even doing??.
 	return s_map[x][y].IsObstacle();
+	// This is so fucking strange. Removing this line and all lighting breaks, 
+	// even though every line that uses this is already checking if the cell is an obstacle or now.
+	// Fucking weird. This works so you can forget about it, but idk maybe one day figure it out.
 }
 
 bool WorldMap::IsObstacleOrOutOfMapBounds(int x, int y)
@@ -146,6 +147,14 @@ void WorldMap::SetCell(int x, int y, Tile tile)
 	}
 }
 
+bool WorldMap::IsTileObstacle(Tile tile)
+{
+	if (tile == Tile::WALL)
+		return true;
+	else 
+		return false;
+}
+
 void WorldMap::BuildEdgeMapFromWorldMap(AABB* aabb, int inset)
 {
 	// Clear "PolyMap"
@@ -170,10 +179,16 @@ void WorldMap::BuildEdgeMapFromWorldMap(AABB* aabb, int inset)
 	// container to store found obstacles within AABB
 	std::vector<Coord2D> wallsWithinRange;
 
+	// only iterate over the map in range
+	int xBegin = std::max(0, (aabb->lowerX / GRID_SIZE) - 1);
+	int xEnd = std::min(MAP_WIDTH, (aabb->upperX / GRID_SIZE) + 2);
+	int yBegin = std::max(0, (aabb->lowerY / GRID_SIZE) - 1);
+	int yEnd = std::min(MAP_HEIGHT, (aabb->upperY / GRID_SIZE) + 2);
+
 	// Iterate through region from top left to bottom right
-	for (int x = 0; x < MAP_WIDTH; x++)
+	for (int x = xBegin; x < xEnd; x++)
 	{
-		for (int y = 0; y < MAP_HEIGHT; y++)
+		for (int y = yBegin; y < yEnd; y++)
 		{
 			Cell* cell = &s_map[x][y];
 			Cell* n = GetCellPointer(x, y - 1);
@@ -186,11 +201,11 @@ void WorldMap::BuildEdgeMapFromWorldMap(AABB* aabb, int inset)
 			if (cell->IsObstacle())
 			{
 				// store it
-				if (IsCellWithinAABB(x, y, aabb))
+				if (IsCellOusideAABB(x, y, aabb))
 					wallsWithinRange.push_back(Coord2D(x, y));
 
 				// If this cell has no western neighbour, it needs a western edge
-				if (w && !w->IsObstacle() && !IsCellWithinAABB(x - 1, y, aabb))
+				if (w && !w->IsObstacle() && !IsCellOusideAABB(x - 1, y, aabb))
 				{
 					// It can either extend it from its northern neighbour if they have
 					// one, or It can start a new one.
@@ -219,7 +234,7 @@ void WorldMap::BuildEdgeMapFromWorldMap(AABB* aabb, int inset)
 				}
 
 				// If this cell dont have an eastern neignbour, It needs a eastern edge
-				if (e && !e->IsObstacle() && !IsCellWithinAABB(x + 1, y, aabb))
+				if (e && !e->IsObstacle() && !IsCellOusideAABB(x + 1, y, aabb))
 				{
 					// It can either extend it from its northern neighbour if they have
 					// one, or It can start a new one.
@@ -247,7 +262,7 @@ void WorldMap::BuildEdgeMapFromWorldMap(AABB* aabb, int inset)
 					}
 				}
 				// If this cell doesnt have a northern neignbour, It needs a northern edge
-				if (n && !n->IsObstacle() && !IsCellWithinAABB(x, y - 1, aabb))
+				if (n && !n->IsObstacle() && !IsCellOusideAABB(x, y - 1, aabb))
 				{
 					// It can either extend it from its western neighbour if they have
 					// one, or It can start a new one.
@@ -275,7 +290,7 @@ void WorldMap::BuildEdgeMapFromWorldMap(AABB* aabb, int inset)
 					}
 				}
 				// If this cell doesnt have a southern neignbour, It needs a southern edge
-				if (s && !s->IsObstacle() && !IsCellWithinAABB(x, y + 1, aabb))
+				if (s && !s->IsObstacle() && !IsCellOusideAABB(x, y + 1, aabb))
 				{
 					// It can either extend it from its western neighbour if they have
 					// one, or It can start a new one.
@@ -352,6 +367,36 @@ void WorldMap::BuildEdgeMapFromWorldMap(AABB* aabb, int inset)
 		}
 	}
 
+
+	// add shadow casting shapes
+	for (auto& it : Scene::s_shadowCastingShape)
+	{
+		ShadowCastingShape& shape = it.second;
+
+		Edge edge;
+		edge.sX = shape.GetCornerA().x;
+		edge.sY = shape.GetCornerA().y;
+		edge.eX = shape.GetCornerB().x;
+		edge.eY = shape.GetCornerB().y;
+		s_edges.push_back(edge);
+		edge.sX = shape.GetCornerC().x;
+		edge.sY = shape.GetCornerC().y;
+		edge.eX = shape.GetCornerB().x;
+		edge.eY = shape.GetCornerB().y;
+		s_edges.push_back(edge);
+		edge.sX = shape.GetCornerC().x;
+		edge.sY = shape.GetCornerC().y;
+		edge.eX = shape.GetCornerD().x;
+		edge.eY = shape.GetCornerD().y;
+		s_edges.push_back(edge);
+		edge.sX = shape.GetCornerA().x;
+		edge.sY = shape.GetCornerA().y;
+		edge.eX = shape.GetCornerD().x;
+		edge.eY = shape.GetCornerD().y;
+		s_edges.push_back(edge);
+	}
+
+
 	FindUniqueEdgePoints();
 }
 
@@ -373,8 +418,6 @@ void WorldMap::FindUniqueEdgePoints()
 
 std::vector<std::tuple<float, float, float>> WorldMap::CalculateVisibilityPolygon(float ox, float oy, float radius)
 {
-	s_newPoints.clear();
-
 	// Get rid of existing polygon
 	std::vector<std::tuple<float, float, float>> visibilityPolygonPoints;
 

@@ -87,6 +87,26 @@ void Extension::SetWallEdgeInset(int inset)
     Renderer::s_wallEdgeInset = inset;
 }
 
+void Extension::SaveMap(const char* filepath)
+{
+    WorldMap::SaveMap(filepath);
+}
+
+void Extension::LoadMap(const char* filepath)
+{
+    WorldMap::LoadMap(filepath);
+}
+
+void Extension::NewShadowCastingShape(const char* name, int x, int y, int width, int height, int angle)
+{
+    Scene::AddShadowCastingShape(name, x, y, width, height, angle);
+}
+
+void Extension::PairNewShadowCastingShapeToActive(int fixedValue, int width, int height, int angle)
+{
+    Scene::AddFixedValueShadowCastingShape(fixedValue, width, height, angle);
+}
+
 bool Extension::IsEditorOpen()
 {
     return Renderer::s_editorMode;
@@ -103,7 +123,7 @@ void Extension::PauseRendering()
     RaycastEngine::s_render = false;
 }*/
 
-void Extension::PairNewLightToActive(int fixedValue, bool hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, int type, float brightness, int angle)
+void Extension::PairNewLightToActive(int fixedValue, bool hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, const char* textureName, float brightness, int angle, bool castShadows)
 {
 
     LPRO objectPtr = Runtime.LPROFromFixed(fixedValue);
@@ -113,12 +133,12 @@ void Extension::PairNewLightToActive(int fixedValue, bool hotspot, int xOffset, 
         return;
 
     // Otherwise, create new fixed value light
-    Scene::AddFixedValueLight(fixedValue, hotspot, xOffset, yOffset, r, g, b, scale, type, brightness, angle);
+    Scene::AddFixedValueLight(fixedValue, hotspot, xOffset, yOffset, r, g, b, scale, textureName, brightness, angle, castShadows);
 }
 
-void Extension::NewLight(const char* name, int x, int y, float r, float g, float b, float scale, int type, float brightness, int angle)
+void Extension::NewLight(const char* name, int x, int y, float r, float g, float b, float scale, const char* textureName, float brightness, int angle, bool castShadows)
 {
-    Scene::AddNamedLight(name, x, y, glm::vec3(r, g, b), scale, type, brightness, angle);
+     Scene::AddNamedLight(name, x, y, glm::vec3(r, g, b), scale, textureName, brightness, angle, castShadows);
 }
 
 void Extension::SetLightPosition(int key, int x, int y)
@@ -132,7 +152,7 @@ void Extension::SetLightPosition(int key, int x, int y)
         for (auto& it : Scene::s_lights)
         {
             int k = it.first;
-            Util::Log(std::to_string(k) + "");
+            //Util::Log(std::to_string(k) + "");
         }
     }
 }
@@ -146,14 +166,15 @@ void Extension::SetLightColor(int key, float r, float g, float b)
 void Extension::SetLightScale(int key, float scale)
 {
     if (Scene::LightExists(key))
-        Scene::s_lights[key].m_scale = scale;
+        Scene::s_lights[key].SetScale(scale);
 }
 
-void Extension::SetLightType(int key, int type)
+void Extension::SetLightTexture(int key, const char* textureName)
 {
     if (Scene::LightExists(key))
-        Scene::s_lights[key].m_type = type;
+        Scene::s_lights[key].SetTexture(textureName);
 }
+
 
 void Extension::SetLightBrightness(int key, float brightness)
 {
@@ -165,6 +186,12 @@ void Extension::SetLightAngle(int key, float angle)
 {
     if (Scene::LightExists(key))
         Scene::s_lights[key].m_angle = angle;
+}
+
+void Extension::SetLightShadowCasting(int key, int value)
+{
+    if (Scene::LightExists(key))
+        Scene::s_lights[key].SetCastShadows(value);
 }
 
 void Extension::SetCellValue(int x, int y, int value)

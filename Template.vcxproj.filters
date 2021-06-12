@@ -144,6 +144,9 @@
     <ClCompile Include="MyShit\Helpers\AssetManager.cpp">
       <Filter>Source Files\MyShit\Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="MyShit\Core\ShadowCastingShape.cpp">
+      <Filter>Source Files\MyShit\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Ext.def">
@@ -348,6 +351,9 @@
     </ClInclude>
     <ClInclude Include="MyShit\Helpers\AssetManager.h">
       <Filter>Source Files\MyShit\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="MyShit\Core\ShadowCastingShape.h">
+      <Filter>Source Files\MyShit\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

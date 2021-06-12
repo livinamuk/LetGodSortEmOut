@@ -33,6 +33,7 @@
 #define HELL_WHITE  glm::vec3(1, 1, 1)
 #define HELL_YELLOW  glm::vec3(1, 1, 0)
 #define HELL_BLUE  glm::vec3(0, 0, 1)
+#define HELL_GREEN  glm::vec3(0, 1, 0)
 
 //#define SCR_WIDTH 1280//1920//2880 //1920//1280
 //#define SCR_HEIGHT 720//1080//1620//1080//720
@@ -111,7 +112,7 @@ struct Cell {
 	bool edge_exists[4];
 
 	bool IsObstacle() {
-		return obstacle;
+		return obstacle;// (tile == Tile::WALL);
 	}
 	void SetObstacle(bool value) {
 		obstacle = value;
@@ -163,6 +164,14 @@ struct AABB {
 	int upperX;
 	int lowerY;
 	int upperY;
+
+	bool ContainsPoint(Coord2D point)
+	{
+		if (point.x < lowerX || point.x > upperX || point.y < lowerY || point.y > upperY)
+			return false;
+		else
+			return true;
+	}
 };
 
 struct LineIntersectionResult {

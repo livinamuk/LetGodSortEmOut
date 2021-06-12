@@ -24,7 +24,7 @@ Extension::Extension(LPRDATA _rdPtr, LPEDATA edPtr, fpcob cobPtr)
     LinkAction(7, SetLightPosition);
     LinkAction(8, SetLightColor);
     LinkAction(9, SetLightScale);
-    LinkAction(10, SetLightType);
+    LinkAction(10, SetLightTexture);
     LinkAction(11, SetLightBrightness);
     LinkAction(12, SetLightAngle);
     LinkAction(13, SetCellValue);
@@ -35,6 +35,11 @@ Extension::Extension(LPRDATA _rdPtr, LPEDATA edPtr, fpcob cobPtr)
     LinkAction(18, SetLightingShadowSoftness);
     LinkAction(19, ToggleEditor);
     LinkAction(20, SetWallEdgeInset);
+    LinkAction(21, SetLightShadowCasting);
+    LinkAction(22, LoadMap);
+    LinkAction(23, SaveMap);
+    LinkAction(24, NewShadowCastingShape);
+    LinkAction(25, PairNewShadowCastingShapeToActive);
     
     LinkCondition(0, IsEditorOpen);
 
@@ -233,33 +238,70 @@ long Extension::Expression(int ID, LPRDATA rdPtr, long param)
 
 void Extension::UpdateFixedValueLights()
 {
-    std::vector<int> keysToErase;
-
-    // Itereate over all lights
-    for (auto& it : Scene::s_lights)
     {
-        // Get pointer to light
-        Light& light = it.second;
+        std::vector<int> keysToErase;
 
-       // If light is paired to an active...
-        if (light.IsPairedToObject())
+        // Itereate over all lights
+        for (auto& it : Scene::s_lights)
         {
-            // Get active object pointer from the light's stored fixed value
-            LPRO objectPtr = Runtime.LPROFromFixed(light.m_pairedObjectData.fixedValue);
+            // Get pointer to light
+            Light& light = it.second;
 
-            // Mark for deletion if the active object no longer exists
-            if (!objectPtr) {
-                keysToErase.push_back(it.first);
-            }
-            else {
-            // Otherwise update the light's position with that of active 
-                int xPos = objectPtr->roHo.hoX + light.m_pairedObjectData.xOffset;
-                int yPos = objectPtr->roHo.hoY + light.m_pairedObjectData.yOffset;;
-                light.SetPosition(xPos, yPos);
+            // If light is paired to an active...
+            if (light.IsPairedToObject())
+            {
+                // Get active object pointer from the light's stored fixed value
+                LPRO objectPtr = Runtime.LPROFromFixed(light.m_pairedObjectData.fixedValue);
+
+                // Mark for deletion if the active object no longer exists
+                if (!objectPtr) {
+                    keysToErase.push_back(it.first);
+                }
+                else {
+                    // Otherwise update the light's position with that of active 
+                    int xPos = objectPtr->roHo.hoX + light.m_pairedObjectData.xOffset;
+                    int yPos = objectPtr->roHo.hoY + light.m_pairedObjectData.yOffset;;
+                    light.SetPosition(xPos, yPos);
+                }
             }
         }
+        // Delete all keys that need to GOs_lights
+        for (int key : keysToErase)
+            Scene::s_lights.erase(key);
     }
-    // Delete all keys that need to GOs_lights
-    for (int key : keysToErase)
-        Scene::s_lights.erase(key);
+
+
+    {
+        std::vector<int> keysToErase;
+
+        // Itereate over all lights
+        for (auto& it : Scene::s_shadowCastingShape)
+        {
+            // Get pointer to light
+            ShadowCastingShape& shape= it.second;
+
+            // If light is paired to an active...
+            if (shape.HasFixedValuePair())
+            {
+                // Get active object pointer from the light's stored fixed value
+                LPRO objectPtr = Runtime.LPROFromFixed(shape.m_fixedVale);
+
+                // Mark for deletion if the active object no longer exists
+                if (!objectPtr) {
+                    keysToErase.push_back(it.first);
+                }
+                else {
+                    // Otherwise update the light's position with that of active 
+                    int xPos = objectPtr->roHo.hoX;
+                    int yPos = objectPtr->roHo.hoY;
+                    int angle = objectPtr->roc.rcAngle;
+                    shape.SetPosition(xPos, yPos);
+                    shape.SetAngle(angle);
+                }
+            }
+        }
+        // Delete all keys that need to GOs_lights
+        for (int key : keysToErase)
+            Scene::s_shadowCastingShape.erase(key);
+    }
 }

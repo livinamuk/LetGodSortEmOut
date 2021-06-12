@@ -29,13 +29,13 @@ enum {
 };
 
 // Example of content of the PROPID_COMBO combo box
-//LPCSTR ComboList[] = {
-//	0,	// reserved
-//	MAKEINTRESOURCE(IDS_FIRSTOPTION),	
-//	MAKEINTRESOURCE(IDS_SECONDOPTION),	
-//	MAKEINTRESOURCE(IDS_THIRDOPTION),	
-//	NULL
-//};
+/*LPCSTR ComboList[] = {
+	0,	// reserved
+	MAKEINTRESOURCE(IDS_FIRSTOPTION),	
+	MAKEINTRESOURCE(IDS_SECONDOPTION),	
+	MAKEINTRESOURCE(IDS_THIRDOPTION),	
+	NULL
+};*/
 
 // Property definitions
 //
@@ -54,7 +54,7 @@ PropData Properties[] = {
 	
 	// Uncomment this line to enable the textures property that can store images inside the extension.
 	// Does not properly store images in saved MFAs yet!
-	//PropData_ImageList(PROPID_IMAGES, (int)_T("Textures"), (int)_T("")),
+	PropData_ImageList(PROPID_IMAGES, (int)_T("Textures"), (int)_T("")),
 
 
 	// End of table (required)

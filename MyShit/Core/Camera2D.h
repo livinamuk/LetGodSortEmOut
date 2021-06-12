@@ -11,4 +11,6 @@ public: // variables
 	static int s_scrollX;
 	static int s_scrollY;
 	static glm::mat4 s_viewMatrix;
+
+	static AABB s_screenAABB;
 };

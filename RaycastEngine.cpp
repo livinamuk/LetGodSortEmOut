@@ -7,7 +7,7 @@ void RaycastEngine::Init()
 {
 	AssetManager::FindAllFiles("res/textures/");
 	Renderer::Init();
-	WorldMap::LoadMap();
+	WorldMap::LoadMap("res/WorldMap.txt");
 	Scene::LoadScene("res/scene.txt");
 	Renderer::s_renderMode = RENDER_MODE_FUSION;
 }
@@ -20,6 +20,8 @@ void RaycastEngine::RenderLoop()
 	WorldMap::Update();
 	Camera2D::AdjustProjection();
 	Renderer::RenderFrame();
+
+	Scene::ResetShadowCastingObjectModifiedFlags();
 }
 
 void RaycastEngine::SetCell(int x, int y, int value)

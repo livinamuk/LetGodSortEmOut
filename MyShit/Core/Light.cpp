@@ -9,39 +9,56 @@ Light::Light()
 {
 }
 
-Light::Light(std::string name, glm::vec2 position, glm::vec3 lightColor, float scale, int type, float brightness, float angle)
+Light::Light(std::string name, glm::vec2 position, glm::vec3 color, float scale, const char* textureName, float brightness, float angle, bool castShadows)
 {
     m_name = name;
     m_position = position;
-    m_color = lightColor;
+    m_color = color;
     m_scale = scale;
-    m_type = type;
     m_brightness = brightness;
     m_angle = angle;
+    m_castShadows = castShadows;
 
     glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);
 
-    SetTextureFromType();
+    SetTexture(textureName);
 }
 
-void Light::DrawShadowCastingLight(Shader* shader, int gBuffgerID)
+void Light::DrawShadowCastingLight(Shader* shader)
 {
-    AABB aabb = this->GetAABB();
+    // If light range is smaller than 1 pixel, skip
+    if (m_texture->height * m_scale < 1 || m_texture->width * m_scale < 1)
+        return;
 
-    // Light
+    // Light position
     float srcX = m_position.x;
     float srcY = m_position.y;
 
-    float testX = srcX + Camera2D::s_scrollX - SCR_WIDTH / 2;
-    float testY = srcY + Camera2D::s_scrollY - SCR_HEIGHT / 2;
-
     // Bail if light source is inside obstacle.
-    // You have commented this out because all tiles out of bands are obstacle now and that is gonna mean light can't come from off screen.
-    /*int gridX = srcX / GRID_SIZE;
+    int gridX = srcX / GRID_SIZE;
     int gridY = srcY / GRID_SIZE;
-    if (WorldMap::s_map[gridX][gridY].IsObstacle())
-        return;*/
+    if (WorldMap::IsTileObstacle(WorldMap::s_map[gridX][gridY].tile))
+        return;
+
+    AABB aabb = this->GetAABB();
+
+    // Check if any Shadow Casting Shapes moved within this lights range
+    for (auto& it : Scene::s_shadowCastingShape)
+    {
+        ShadowCastingShape& shape = it.second;
+
+        if (m_visibilityPolygonNeedsUpdate == false && shape.WasModified()) {
+            if (aabb.ContainsPoint(shape.GetCornerA()) ||
+                aabb.ContainsPoint(shape.GetCornerB()) ||
+                aabb.ContainsPoint(shape.GetCornerC()) ||
+                aabb.ContainsPoint(shape.GetCornerD())) {
+
+                m_visibilityPolygonNeedsUpdate = true;
+                Renderer::s_testCounter++;
+            }
+        }
+    }
 
     if (m_visibilityPolygonNeedsUpdate)
     {
@@ -141,8 +158,12 @@ bool Light::IsInScreenBounds()
 
 bool Light::IsShadowCasting()
 {
-    return (m_type == ROOM_LIGHT ||
-        m_type == SPOT_LIGHT);
+    return m_castShadows;
+}
+
+void Light::SetCastShadows(bool value)
+{
+    m_castShadows = true;
 }
 
 bool Light::IsPairedToObject()
@@ -154,6 +175,18 @@ void Light::SetPosition(float x, float y)
 {
     m_position = glm::vec2(x, y);
     m_visibilityPolygonNeedsUpdate = true;
+}
+
+void Light::SetScale(float scale)
+{
+    m_scale = scale;
+    if (m_scale < 0)
+        m_scale = 0;
+}
+
+float Light::GetScale()
+{
+    return m_scale;
 }
 
 float Light::GetX()
@@ -168,10 +201,22 @@ float Light::GetY()
 
 AABB Light::GetAABB()
 {
-    AABB aabb;
-    aabb.lowerX = m_position.x - (m_texture->width / 2) * m_scale;
-    aabb.upperX = m_position.x + (m_texture->width / 2) * m_scale;
-    aabb.lowerY = m_position.y - (m_texture->height / 2) * m_scale;
-    aabb.upperY = m_position.y + (m_texture->height / 2) * m_scale;
-    return aabb;
+    m_aabb.lowerX = m_position.x - (m_texture->width / 2) * m_scale;
+    m_aabb.upperX = m_position.x + (m_texture->width / 2) * m_scale;
+    m_aabb.lowerY = m_position.y - (m_texture->height / 2) * m_scale;
+    m_aabb.upperY = m_position.y + (m_texture->height / 2) * m_scale;
+    return m_aabb;
+}
+
+void Light::SetTexture(std::string textureName)
+{
+    m_texture = Texture::GetTexByName(textureName);
+}
+
+const char* Light::GetTextureName()
+{
+    if (m_texture)
+        return m_texture->name.c_str();
+    else
+        return "undefined";
 }

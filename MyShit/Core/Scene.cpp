@@ -1,32 +1,56 @@
 #include "Scene.h"
 
 std::unordered_map<int, Light> Scene::s_lights;
-unsigned int Scene::s_lightKeyCounter;
+std::unordered_map<int, ShadowCastingShape> Scene::s_shadowCastingShape;
+unsigned int Scene::s_lightKeyCounter = 0;
+unsigned int Scene::s_shapeKeyCounter = 0;
 
-void Scene::AddLight(int x, int y, glm::vec3 lightColor, float lightScale, int lightType, float brightness, float angle)
+void Scene::Update()
 {
-	Light light("noname", glm::vec2(x, y), lightColor, lightScale, lightType, brightness, angle);
+
+}
+
+void Scene::AddLight(int x, int y, glm::vec3 lightColor, float lightScale, const char* textureName, float brightness, float angle, bool castShadows)
+{
+	s_lights[s_lightKeyCounter] = Light("noname", glm::vec2(x, y), lightColor, lightScale, textureName, brightness, angle, castShadows);
+	s_lightKeyCounter++;
+}
+
+void Scene::AddNamedLight(const char* name, int x, int y, glm::vec3 color, float scale, const char* textureName, float brightness, float angle, bool castShadows)
+{
+	Light light(name, glm::vec2(x, y), color, scale, textureName, brightness, angle, castShadows);
 	s_lights[s_lightKeyCounter] = light;
 	s_lightKeyCounter++;
 }
 
-void Scene::AddNamedLight(const char* name, int x, int y, glm::vec3 color, float scale, int type, float brightness, float angle)
+void Scene::AddFixedValueLight(int fixedValue, int hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, const char* textureName, float brightness, float angle, bool castShadows)
 {
-	Light light(name, glm::vec2(x, y), color, scale, type, brightness, angle);
-	s_lights[s_lightKeyCounter] = light;
-	s_lightKeyCounter++;
-}
-
-void Scene::AddFixedValueLight(int fixedValue, int hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, int type, float brightness, float angle)
-{
-	Light light("fixed_value_light", glm::vec2(0, 0), glm::vec3(r, g, b), scale, type, brightness, angle);
+	Light light("fixed_value_light", glm::vec2(0, 0), glm::vec3(r, g, b), scale, textureName, brightness, angle, castShadows);
 	light.m_pairedObjectData.isPaired = true;
 	light.m_pairedObjectData.fixedValue = fixedValue;
 	light.m_pairedObjectData.followHotSpot = hotspot;
 	light.m_pairedObjectData.xOffset = xOffset;
-	light.m_pairedObjectData.yOffset = yOffset; 
+	light.m_pairedObjectData.yOffset = yOffset;
 	s_lights[s_lightKeyCounter] = light;
-	s_lightKeyCounter++; 
+	s_lightKeyCounter++;
+}
+
+void Scene::AddShadowCastingShape(const char* name, int x, int y, int width, int height, float angle)
+{
+	ShadowCastingShape shadowCastingShape(name, x, y, width, height, angle);
+	s_shadowCastingShape[s_shapeKeyCounter] = shadowCastingShape;
+	s_shapeKeyCounter++;
+}
+
+void Scene::AddFixedValueShadowCastingShape(int fixedValue, int width, int height, float angle)
+{
+	s_shadowCastingShape[fixedValue] = ShadowCastingShape(fixedValue, width, height, angle);
+}
+
+void Scene::ResetShadowCastingObjectModifiedFlags()
+{
+	for (auto& shape : s_shadowCastingShape)
+		shape.second.ResetModifiedFlag();
 }
 
 void Scene::SaveScene(std::string filename)
@@ -52,10 +76,11 @@ void Scene::SaveScene(std::string filename)
 		SaveFloat(&flagObject, "ColorR", light.m_color.x, allocator);
 		SaveFloat(&flagObject, "ColorG", light.m_color.y, allocator);
 		SaveFloat(&flagObject, "ColorB", light.m_color.z, allocator);
-		SaveInt(&flagObject, "Type", light.m_type, allocator);
+		SaveString(&flagObject, "Texture", light.GetTextureName(), allocator);
 		SaveFloat(&flagObject, "Angle", light.m_angle, allocator);
 		SaveFloat(&flagObject, "Brightness", light.m_brightness, allocator);
-		SaveFloat(&flagObject, "Scale", light.m_scale, allocator);
+		SaveFloat(&flagObject, "Scale", light.GetScale(), allocator);
+		SaveInt(&flagObject, "ShadowCasting", light.IsShadowCasting(), allocator);
 		lightsArray.PushBack(flagObject, allocator);
 	}
 	object.AddMember("Lights", lightsArray, allocator);
@@ -107,12 +132,13 @@ void Scene::LoadScene(std::string filename)
 			float r = light["ColorR"].GetFloat();
 			float g = light["ColorG"].GetFloat();
 			float b = light["ColorB"].GetFloat();
-			int type = light["Type"].GetInt();
+			const char* textureName = light["Texture"].GetString();
 			float angle = light["Angle"].GetFloat();
 			float brightness = light["Brightness"].GetFloat();
 			float scale = light["Scale"].GetFloat();
+			bool castShadows = light["ShadowCasting"].GetInt();
 
-			Scene::AddLight(x, y, glm::vec3(r, g, b), scale, type, brightness, angle);
+			Scene::AddLight(x, y, glm::vec3(r, g, b), scale, textureName, brightness, angle, castShadows);
 		}
 	}
 }
@@ -120,17 +146,10 @@ void Scene::LoadScene(std::string filename)
 void Scene::ResetScene()
 {
 	s_lights.clear();
+	s_shadowCastingShape.clear();
+	s_lightKeyCounter = 0;
+	s_shapeKeyCounter = 0;
 }
-
-/*Light* Scene::GetLightByName(std::string name)
-{
-	for (int i = 0; i < Scene::s_lights.size(); i++)
-	{
-		if (Scene::s_lights[i].m_name == name)
-			return &Scene::s_lights[i];
-	}
-	return nullptr;
-}*/
 
 void Scene::UpdateAllLights()
 {

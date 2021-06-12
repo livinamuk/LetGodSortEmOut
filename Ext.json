@@ -19,9 +19,9 @@
     [ 7, "Set light position" ],
     [ 8, "Set light color" ],
     [ 9, "Set light scale" ],
-    [ 10, "Set light type" ],
-    [ 11, "Set light brightness" ],
-    [ 12, "Set light angle" ],
+    [ 10, "Set light texture by key" ],
+    [ 11, "Set light brightness by key" ],
+    [ 12, "Set light angle by key" ],
     [ 13, "Set map value" ],
     [ 14, "Toggle LOS" ],
     [ 15, "Toggle LIGHTING" ],
@@ -29,7 +29,12 @@
     [ 17, "Set LOS soft shadow amount" ],
     [ 18, "Set lighting soft shadow amount" ],
     [ 19, "Toggle editor" ],
-    [ 20, "Set wall edge inset" ]
+    [ 20, "Set wall edge inset" ],
+    [ 21, "Set light shadow casting by key" ],
+    [ 22, "Load map" ],
+    [ 23, "Save map" ],
+    [ 24, "New shadow casting shape" ],
+    [ 25, "Pair new shadow casting shape to active object" ]
   ],
   "ConditionMenu": [
     [ 0, "Is editor open" ]
@@ -51,7 +56,7 @@
     [ 13, "Get light green component by key" ],
     [ 14, "Get light blue component by key" ],
     [ 15, "Get light brightness by key" ],
-    [ 16, "Get light texture key" ],
+    [ 16, "Get light texture by key" ],
     [ 17, "Get LOS soft shadows amount" ],
     [ 18, "Get lighting soft shadows amount" ],
     [ 19, "Get wall edge inset" ],
@@ -86,26 +91,27 @@
       ]
     },
     {
-      "Title": "Pair new light to Active: %0 offset (%2, %3) color (%4, %5, %6) scale %7 type %8 brightness %9 rotation %10 use hotspot %1",
+      "Title": "Pair new light to Active: %0 offset (%2, %3) color (%4, %5, %6) scale %7 texture %8 brightness %9 rotation %10 anchor %1 shadows %11",
       "Parameters": [
         [ "Integer", "fixed value" ],
-        [ "Integer", "use hotspot" ],
+        [ "Integer", "anchor point (1:hotspot 0:action point)" ],
         [ "Integer", "x offset" ],
         [ "Integer", "y offset" ],
         [ "Float", "red" ],
         [ "Float", "green" ],
         [ "Float", "blue" ],
         [ "Float", "scale" ],
-        [ "Integer", "type" ],
+        [ "Text", "texture name" ],
         [ "Float", "brightness" ],
-        [ "Integer", "rotation" ]
+        [ "Integer", "rotation" ],
+        [ "Integer", "cast shadows (1:yes 0:no)" ]
       ]
     },
     {
       "Title": "Start rendering"
     },
     {
-      "Title": "New Light %0 at (%1, %2) RGB(%3, %4, %5) scale %6 type %7 brightness %8 rotate %9",
+      "Title": "New Light %0 at (%1, %2) RGB(%3, %4, %5) scale %6 texture %7 brightness %8 rotate %9 shadows %10",
       "Parameters": [
         [ "Text", "name" ],
         [ "Integer", "x" ],
@@ -114,9 +120,10 @@
         [ "Float", "g" ],
         [ "Float", "b" ],
         [ "Float", "scale" ],
-        [ "Integer", "type" ],
+        [ "Text", "texture name" ],
         [ "Float", "brightness" ],
-        [ "Integer", "rotate" ]
+        [ "Integer", "rotate" ],
+        [ "Integer", "cast shadows (1:yes 0:no)" ]
       ]
     },
     {
@@ -144,10 +151,10 @@
       ]
     },
     {
-      "Title": "Set light %0 type %1",
+      "Title": "Set light %0 texture %1",
       "Parameters": [
         [ "Integer", "key" ],
-        [ "Integer", "tytpe" ]
+        [ "Text", "texture name" ]
       ]
     },
     {
@@ -203,6 +210,45 @@
       "Title": "Set wall edge inset to %0",
       "Parameters": [
         [ "Integer", "Set wall edge inset in pixels" ]
+      ]
+    },
+    {
+      "Title": "Set light %0 shadow casting to %1",
+      "Parameters": [
+        [ "Integer", "key" ],
+        [ "Integer", "value [0:no 1:yes]" ]
+      ]
+    },
+    {
+      "Title": "Load map %0",
+      "Parameters": [
+        [ "Text", "filepath" ]
+      ]
+    },
+    {
+      "Title": "Save map %0",
+      "Parameters": [
+        [ "Text", "filepath" ]
+      ]
+    },
+    {
+      "Title": "New shadow casting shape %0 at (%1, %2) with size (%3, %4) angle %5",
+      "Parameters": [
+        [ "Text", "name" ],
+        [ "Integer", "x" ],
+        [ "Integer", "y" ],
+        [ "Integer", "width" ],
+        [ "Integer", "height" ],
+        [ "Integer", "angle" ]
+      ]
+    },
+    {
+      "Title": "Pair shadow casting shape to active %0 with size (%1, %2) angle %3",
+      "Parameters": [
+        [ "Integer", "fixed value" ],
+        [ "Integer", "width" ],
+        [ "Integer", "height" ],
+        [ "Integer", "angle" ]
       ]
     }
   ],
@@ -311,7 +357,7 @@
     {
       "Title": "GetLightTextureByKey(",
       "Parameters": [
-        [ "Integer", "TO DO" ]
+        [ "Integer", "key" ]
       ],
       "Returns": "Text"
     },

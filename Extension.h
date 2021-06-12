@@ -65,14 +65,15 @@ public:
     void NextRenderMode();
     void StartRendering();
     //void PauseRendering();
-    void PairNewLightToActive(int fixedValue, bool hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, int type, float brightness, int rotate);
-    void NewLight(const char* name, int x, int y, float r, float g, float b, float scale, int type, float brightness, int rotate);
+    void PairNewLightToActive(int fixedValue, bool hotspot, int xOffset, int yOffset, float r, float g, float b, float scale, const char* textureName, float brightness, int rotate, bool castShadows);
+    void NewLight(const char* name, int x, int y, float r, float g, float b, float scale, const char* textureName, float brightness, int rotate, bool castShadows);
     void SetLightPosition(int key, int x, int y);
     void SetLightColor(int key, float r, float g, float b);
     void SetLightScale(int key, float scale);
-    void SetLightType(int key, int type);
+    void SetLightTexture(int key, const char* textureName);
     void SetLightBrightness(int key, float brightness);
     void SetLightAngle(int key, float angle);
+    void SetLightShadowCasting(int key, int value);
     void SetCellValue(int x, int y, int value);
     void ToggleLOS();
     void ToggleLIGHTING();
@@ -82,7 +83,10 @@ public:
     void SetLightingShadowSoftness(int levels);
     void ToggleEditor();
     void SetWallEdgeInset(int inset);
-
+    void SaveMap(const char* filepath);
+    void LoadMap(const char* filepath);
+    void NewShadowCastingShape(const char* name, int x, int y, int width, int height, int angle);
+    void PairNewShadowCastingShapeToActive(int fixedValue, int width, int height, int angle);
 
     /// Conditions
     bool IsEditorOpen();

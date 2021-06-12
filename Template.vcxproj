@@ -765,6 +765,7 @@
     <ClCompile Include="MyShit\Core\Input.cpp" />
     <ClCompile Include="MyShit\Core\Light.cpp" />
     <ClCompile Include="MyShit\Core\Scene.cpp" />
+    <ClCompile Include="MyShit\Core\ShadowCastingShape.cpp" />
     <ClCompile Include="MyShit\Core\WorldMap.cpp" />
     <ClCompile Include="MyShit\Helpers\AssetManager.cpp" />
     <ClCompile Include="MyShit\Helpers\Util.cpp" />
@@ -837,6 +838,7 @@
     <ClInclude Include="MyShit\Core\keycodes.h" />
     <ClInclude Include="MyShit\Core\Light.h" />
     <ClInclude Include="MyShit\Core\Scene.h" />
+    <ClInclude Include="MyShit\Core\ShadowCastingShape.h" />
     <ClInclude Include="MyShit\Core\WorldMap.h" />
     <ClInclude Include="MyShit\Header.h" />
     <ClInclude Include="MyShit\Helpers\AssetManager.h" />

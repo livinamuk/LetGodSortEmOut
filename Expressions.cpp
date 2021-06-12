@@ -48,14 +48,6 @@ int Extension::GetLightKeyByName(const char* name)
 	return Scene::GetLightKeyByName(name);
 }
 
-
-/*const char* Extension::GetLightIDbyKey(int key)
-{
-	if (Scene::s_lights.find(key) != Scene::s_lights.end())
-		return Scene::s_lights[key].m_name.c_str();
-	else
-}*/
-
 int Extension::GetLightXByKey(int key)
 {
 	if (Scene::LightExists(key))
@@ -83,7 +75,7 @@ float Extension::GetLightAngleByKey(int key)
 float Extension::GetLightScaleByKey(int key)
 {
 	if (Scene::LightExists(key))
-		return Scene::s_lights[key].m_scale;
+		return Scene::s_lights[key].GetScale();
 	else
 		return 0.0f;
 }
@@ -122,7 +114,10 @@ float Extension::GetLightBrightnessByKey(int key)
 
 const char* Extension::GetLightTextureByKey(int key)
 {
-	return "TO DO";
+	//if (Scene::LightExists(key))
+//		return Scene::s_lights[key].GetTextureName();
+	//else
+		return "light not found";
 }
 
 int Extension::GetLOSSoftShadowsAmount()

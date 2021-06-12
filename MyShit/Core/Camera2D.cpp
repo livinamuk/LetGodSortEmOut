@@ -3,6 +3,7 @@
 int Camera2D::s_scrollX;
 int Camera2D::s_scrollY;
 glm::mat4 Camera2D::s_viewMatrix;
+AABB Camera2D::s_screenAABB;
 
 void Camera2D::AdjustProjection()
 {
@@ -21,19 +22,20 @@ void Camera2D::AdjustProjection()
 
 AABB Camera2D::GetSCreenAABB()
 {
+	s_screenAABB.lowerX = Camera2D::s_scrollX - (SCR_WIDTH / 2);
+	s_screenAABB.upperX = Camera2D::s_scrollX + (SCR_WIDTH / 2);
+	s_screenAABB.lowerY = Camera2D::s_scrollY - (SCR_HEIGHT / 2);
+	s_screenAABB.upperY = Camera2D::s_scrollY + (SCR_HEIGHT / 2);
+
 	int threshold = 0;
-	AABB aabb;
-	aabb.lowerX = Camera2D::s_scrollX - (SCR_WIDTH / 2) + threshold;
-	aabb.upperX = Camera2D::s_scrollX + (SCR_WIDTH / 2) - threshold;
-	aabb.lowerY = Camera2D::s_scrollY - (SCR_HEIGHT / 2) + threshold;
-	aabb.upperY = Camera2D::s_scrollY + (SCR_HEIGHT / 2) - threshold;
+	s_screenAABB.lowerX += threshold;
+	s_screenAABB.upperX -= threshold;
+	s_screenAABB.lowerY += threshold;
+	s_screenAABB.upperY -= threshold;
 
-	if (aabb.upperY < SCR_HEIGHT)
-		aabb.upperY = SCR_HEIGHT;	
-	
-	// this below may not doing anything. but apparently above does... ??
-	if (aabb.upperX < SCR_WIDTH)
-		aabb.upperX = SCR_WIDTH;
+//	aabb.lowerX = std::max(aabb.lowerX, (int)SCR_WIDTH);
+	//if (s_screenAABB.upperY < SCR_HEIGHT)
+	//	s_screenAABB.upperY = SCR_HEIGHT;
 
-	return aabb;
+	return s_screenAABB;
 }
